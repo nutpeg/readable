@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PostsList from "./PostsList";
+import PostsNav from "./PostsNav";
 
 const defaultData = {
   posts: {
@@ -63,11 +65,20 @@ const defaultData = {
   ],
 };
 
+function getPosts(obj) {
+  let posts = [];
+  for (const prop in obj) {
+    posts.push(obj[prop]);
+  }
+  return posts;
+}
+
 class App extends Component {
   render() {
     return (
-      <div className="App" posts={defaultData.posts}>
-        Readable
+      <div className="main">
+        <PostsNav categories={defaultData.categories} />
+        <PostsList posts={getPosts(defaultData.posts)} />
       </div>
     );
   }

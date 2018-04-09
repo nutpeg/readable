@@ -1,5 +1,59 @@
+:root {
+  font-size: 1em;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+}
+
+.main {
+  width: 70%;
+  margin: auto;
+}
+
+nav {
+  float: left;
+  width: 25%;
+}
+
+.content {
+  float: left;
+  width: 75%;
+}
+
+.post-item {
+  padding: 0.5em;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.post-item h4 {
+  margin: 0.5em 0em;
+}
+
+.post-item p {
+  margin: 0.5em 0em;
+}
+
+.post-item--footer-comments {
+  display: inline-block;
+}
+
+.post-item--footer-votes {
+  display: inline-block;
+}
+
+.post-item--footer-controls {
+  display: inline-block;
 }
