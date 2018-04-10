@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class PostsNav extends Component {
   render() {
@@ -6,9 +7,13 @@ class PostsNav extends Component {
     return (
       <nav className="nav">
         <ul>
-          <li>All</li>
+          <li>
+            <Link to="/">All</Link>
+          </li>
           {categories.map(category => (
-            <li key={category.name}>{category.name}</li>
+            <li key={category.name}>
+              <Link to={`/${category.path}`}>{category.name}</Link>
+            </li>
           ))}
         </ul>
       </nav>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import PostsList from "./PostsList";
 import PostsNav from "./PostsNav";
 
@@ -65,21 +66,48 @@ const defaultData = {
   ],
 };
 
-function getPosts(obj) {
+function getPosts(obj, category) {
   let posts = [];
   for (const prop in obj) {
     posts.push(obj[prop]);
   }
-  return posts;
+  return filterPosts(posts, category);
+}
+
+function filterPosts(posts, category) {
+  if (!category) {
+    return posts;
+  }
+  return posts.filter(post => post.category === category);
 }
 
 class App extends Component {
   render() {
     return (
-      <div className="main">
-        <PostsNav categories={defaultData.categories} />
-        <PostsList posts={getPosts(defaultData.posts)} />
-      </div>
+      <Router>
+        <div className="main">
+          <PostsNav categories={defaultData.categories} />
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <PostsList
+                baseUrl={props.match.url}
+                posts={getPosts(defaultData.posts)}
+              />
+            )}
+          />
+          <Route
+            path="/:category"
+            render={props => (
+              <PostsList
+                baseUrl={props.match.url}
+                posts={getPosts(defaultData.posts, props.match.params.category)}
+              />
+            )}
+          />
+        </div>
+      </Router>
     );
   }
 }

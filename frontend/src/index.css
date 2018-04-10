@@ -28,6 +28,10 @@ nav {
   width: 25%;
 }
 
+nav a {
+  text-transform: capitalize;
+}
+
 .content {
   float: left;
   width: 75%;
