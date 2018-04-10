@@ -19,7 +19,6 @@ const PostsLists = props => {
           </li>
         ))}
       </ul>
-      <Route path={`${props.baseUrl}/new`} component={PostsNew} />
     </div>
   );
 };

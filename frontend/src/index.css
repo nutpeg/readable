@@ -1,5 +1,12 @@
 :root {
   font-size: 1em;
+  box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
 }
 
 body {
@@ -21,6 +28,7 @@ li {
 .main {
   width: 70%;
   margin: auto;
+  padding-top: 1em;
 }
 
 nav {
@@ -35,6 +43,10 @@ nav a {
 .content {
   float: left;
   width: 75%;
+}
+
+.content > h1 {
+  margin-top: 0em;
 }
 
 .post-item {

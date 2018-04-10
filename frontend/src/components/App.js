@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PostsList from "./PostsList";
 import PostsNav from "./PostsNav";
+import PostsNew from "./PostsNew";
 
 const defaultData = {
   posts: {
@@ -87,25 +88,28 @@ class App extends Component {
       <Router>
         <div className="main">
           <PostsNav categories={defaultData.categories} />
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <PostsList
-                baseUrl={props.match.url}
-                posts={getPosts(defaultData.posts)}
-              />
-            )}
-          />
-          <Route
-            path="/:category"
-            render={props => (
-              <PostsList
-                baseUrl={props.match.url}
-                posts={getPosts(defaultData.posts, props.match.params.category)}
-              />
-            )}
-          />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <PostsList {...props} posts={getPosts(defaultData.posts)} />
+              )}
+            />
+            <Route path="/posts/new" component={PostsNew} />
+            <Route
+              path="/:category"
+              render={props => (
+                <PostsList
+                  {...props}
+                  posts={getPosts(
+                    defaultData.posts,
+                    props.match.params.category,
+                  )}
+                />
+              )}
+            />
+          </Switch>
         </div>
       </Router>
     );

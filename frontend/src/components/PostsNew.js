@@ -9,7 +9,8 @@ class PostsNew extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="content">
+        <h1>New Post</h1>
         <form action="">
           <div>
             <input type="text" name="title" placeholder="Title" />
