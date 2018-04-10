@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PostsList from "./PostsList";
 import PostsNav from "./PostsNav";
 import PostsNew from "./PostsNew";
+import * as API from "../utils/api";
 
 const defaultData = {
   posts: {
@@ -83,6 +84,9 @@ function filterPosts(posts, category) {
 }
 
 class App extends Component {
+  componentDidMount() {
+    API.getInitialData();
+  }
   render() {
     return (
       <Router>
