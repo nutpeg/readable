@@ -1,7 +1,6 @@
 import React from "react";
 import Post from "./Post";
-import { Route, Link } from "react-router-dom";
-import PostsNew from "./PostsNew";
+import { Link } from "react-router-dom";
 
 const PostsLists = props => {
   return (

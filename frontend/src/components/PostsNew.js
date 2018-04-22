@@ -13,13 +13,15 @@ class PostsNew extends Component {
         <h1>New Post</h1>
         <form action="">
           <p>
-            <input type="text" name="title" placeholder="Title" />
-          </p>
-          <p>
             <label htmlFor="author">Author</label>
             <input type="text" name="author" placeholder="Author" />
           </p>
           <p>
+            <label htmlFor="title">Post Title</label>
+            <input type="text" name="title" placeholder="Title" />
+          </p>
+          <p>
+            <label htmlFor="postBody">Post</label>
             <input type="text" name="postBody" placeholder="Your post" />
           </p>
           <p>

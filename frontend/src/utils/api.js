@@ -19,13 +19,18 @@ export function getCategories() {
 export function getPosts() {
   return client
     .get("/posts")
-    .then(resp => resp.data)
+    .then(resp => {
+      console.log("Posts: ", resp);
+      return resp.data;
+    })
     .catch(error => console.error(error));
 }
 
 export function getInitialData() {
-  Promise.all([getCategories(), getPosts()]).then(([categories, posts]) => {
-    console.log("categories", categories);
-    console.log("posts: ", posts);
-  });
+  return Promise.all([getCategories(), getPosts()]).then(
+    ([categories, posts]) => ({
+      categories,
+      posts,
+    }),
+  );
 }
