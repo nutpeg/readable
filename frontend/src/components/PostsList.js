@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -73,41 +71,6 @@ class PostsList extends React.Component {
             </Select>
           </FormControl>
         </form>
-        {/* <div>
-          <div className={classes.root}>
-            <List component="nav">
-              <ListItem
-                button
-                aria-haspopup="true"
-                aria-controls="lock-menu"
-                aria-label="Sort by"
-                onClick={this.handleClickListItem}
-              >
-                <ListItemText
-                  primary="Sort by"
-                  secondary={options[this.state.selectedIndex]}
-                />
-              </ListItem>
-            </List>
-            <Menu
-              id="lock-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleClose}
-            >
-              {options.map((option, index) => (
-                <MenuItem
-                  key={option}
-                  disabled={index === 0}
-                  selected={index === this.state.selectedIndex}
-                  onClick={event => this.handleMenuItemClick(event, index)}
-                >
-                  {option}
-                </MenuItem>
-              ))}
-            </Menu>
-          </div>
-        </div> */}
 
         <ul>
           {posts.map(post => (
