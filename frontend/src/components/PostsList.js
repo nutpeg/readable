@@ -1,25 +1,28 @@
-import React from "react";
-import Post from "./Post";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Post from './Post';
+import { Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
-const PostsLists = props => {
-  return (
-    <div className="content">
-      <h1>Posts</h1>
+const PostsList = props => {
+  const { posts } = props;
+  return <div className="content">
+      <Typography variant="display1" gutterBottom>
+        Posts
+      </Typography>
       <div>
-        <Link to="/posts/new" className="button small">
-          New Post
+        <Link to="/posts/new">
+          <Button variant="contained" color="primary">
+            New Post
+          </Button>
         </Link>
       </div>
       <ul>
-        {props.posts.map(post => (
-          <li className="post-item" key={post.id}>
+        {posts.map(post => <li className="post-item" key={post.id}>
             <Post post={post} />
-          </li>
-        ))}
+          </li>)}
       </ul>
-    </div>
-  );
+    </div>;
 };
 
-export default PostsLists;
+export default PostsList;

@@ -26,9 +26,11 @@ class PostsNew extends Component {
           </p>
           <p>
             <select name="category">
-              <option value="value1">Category 1</option>
-              <option value="value2">Category 2</option>
-              <option value="value3">Category 3</option>
+              {this.props.categories.map(category => (
+                <option key={category.name} value={`${category.name}`}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </p>
           <div>

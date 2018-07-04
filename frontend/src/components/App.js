@@ -37,7 +37,10 @@ class App extends Component {
                 path="/"
                 render={props => <PostsList {...props} posts={posts} />}
               />
-              <Route path="/posts/new" component={PostsNew} />
+              <Route
+                path="/posts/new"
+                render={props => <PostsNew categories={categories} />}
+              />
               <Route
                 path="/:category"
                 render={props => (

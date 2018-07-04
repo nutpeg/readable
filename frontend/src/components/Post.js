@@ -1,10 +1,12 @@
 import React from "react";
+import Typography from '@material-ui/core/Typography';
 
 const Post = props => {
   const post = props.post;
-  return (
-    <React.Fragment>
-      <h4>{post.title}</h4>
+  return <React.Fragment>
+      <Typography variant="title" gutterBottom>
+        {post.title}
+      </Typography>
       <p>{post.author}</p>
       <div className="post-item--footer">
         <div className="post-item--footer-comments">
@@ -20,8 +22,7 @@ const Post = props => {
           <button className="button small">delete</button>
         </div>
       </div>
-    </React.Fragment>
-  );
+    </React.Fragment>;
 };
 
 export default Post;
