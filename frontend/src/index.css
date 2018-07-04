@@ -28,19 +28,34 @@ li {
 .main {
   width: 70%;
   margin: auto;
-  padding-top: 1em;
+  padding-top: 2em;
+}
+p {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1.71429em;
+}
+
+.bolder {
+  font-weight: 500;
+}
+
+.lighter {
+  color: rgba(0, 0, 0, 0.57);
 }
 
 a {
   text-decoration: none;
 }
 
-nav {
+.nav {
   float: left;
   width: 25%;
 }
 
-nav a {
+.nav a {
   text-transform: capitalize;
 }
 
@@ -53,29 +68,61 @@ nav a {
   margin-top: 0em;
 }
 
+.posts-list__header {
+  display: flex;
+  align-items: flex-start;
+}
+
+.posts-list__header > h1 {
+  /* float: left; */
+}
+
+.posts-list__header-button {
+  margin-left: auto;
+}
+.sorter {
+  display: block;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  align-items: flex-start;
+  padding: 1.5em 0 0 0;
+  border-radius: 0.5em;
+  width: 100%;
+}
+
+.list > * + * {
+  margin-left: 2em;
+}
+
+.list__item {
+  margin-top: 0;
+}
+
+.list__item > h2 {
+  margin-top: 0;
+}
+
+.list__controls-left {
+  display: flex;
+  align-items: center;
+}
+
+.list__voting-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list__controls-right {
+  margin-left: auto;
+}
+
 .post-item {
-  padding: 0.5em;
+  padding: 0;
   border-bottom: 1px solid #f8f8f8;
-}
-
-.post-item h4 {
-  margin: 0.5em 0em;
-}
-
-.post-item p {
-  margin: 0.5em 0em;
-}
-
-.post-item--footer-comments {
-  display: inline-block;
-}
-
-.post-item--footer-votes {
-  display: inline-block;
-}
-
-.post-item--footer-controls {
-  display: inline-block;
 }
 
 label {

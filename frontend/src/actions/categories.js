@@ -19,7 +19,7 @@ export function fetchCategories() {
     getCategories().then(categories => {
       setTimeout(() => {
         dispatch(fetchCategoriesSucceeded(categories));
-      }, 1000);
+      }, 10);
     });
   };
 }

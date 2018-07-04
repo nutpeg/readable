@@ -19,7 +19,7 @@ export function fetchPosts() {
     getPosts().then(posts => {
       setTimeout(() => {
         dispatch(fetchPostsSucceeded(posts));
-      }, 2000);
+      }, 20);
     });
   };
 }
