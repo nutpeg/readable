@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { withStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
-import { prettyDate } from "../utils/prettyDate";
+import { prettyDate } from '../utils/prettyDate';
 
 const styles = theme => ({
   icon: {
@@ -36,20 +36,23 @@ const styles = theme => ({
 });
 
 const PostSummary = props => {
-  const { classes, post } = props;
-  return <div className="list">
+  const { classes, post, onUpVote, onDownVote } = props;
+  return (
+    <div className="list">
       <div className="list__controls-left">
         <div className="list__voting-controls">
           <div>
-            <Button className={classes.smallIconButton} size="small">
+            <Button className={classes.smallIconButton} size="small" onClick={() => onUpVote(post.id)}>
               <ExpandLessIcon className={classes.smallIcon} color="action" />
             </Button>
           </div>
-          <Typography variant="caption">
-          {`${post.voteScore} VOTES`}
-          </Typography>
+          <Typography variant="caption">{`${post.voteScore} VOTES`}</Typography>
           <div>
-            <Button className={classes.smallIconButton} size="small">
+            <Button
+              className={classes.smallIconButton}
+              size="small"
+              onClick={() => onDownVote(post.id)}
+            >
               <ExpandMoreIcon className={classes.smallIcon} color="action" />
             </Button>
           </div>
@@ -62,8 +65,12 @@ const PostSummary = props => {
         <p>
           <span className="lighter">by </span>
           <span className="bolder">{post.author}</span>
-        <span className="lighter">{` on ${prettyDate(post.timestamp)}`}</span>
-          <Badge className={classes.icon} badgeContent={post.commentCount} color="primary">
+          <span className="lighter">{` on ${prettyDate(post.timestamp)}`}</span>
+          <Badge
+            className={classes.icon}
+            badgeContent={post.commentCount}
+            color="primary"
+          >
             <ModeCommentIcon className={classes.commentIcon} />
           </Badge>
         </p>
@@ -76,7 +83,8 @@ const PostSummary = props => {
           <DeleteIcon />
         </IconButton>
       </div>
-    </div>;
+    </div>
+  );
 };
 
 export default withStyles(styles)(PostSummary);

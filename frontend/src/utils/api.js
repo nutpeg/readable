@@ -34,3 +34,17 @@ export function getInitialData() {
     }),
   );
 }
+
+// POST / posts /: id
+// USAGE:
+// Used for voting on a post
+// PARAMS:
+// option - String: Either "upVote" or "downVote"
+
+export function vote(id, direction) {
+  return client
+    .post(`/posts/${id}`, {
+      option: direction,
+    })
+    .catch(error => console.error(error));
+}

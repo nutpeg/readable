@@ -6,12 +6,12 @@ import PostsNav from "./PostsNav";
 import PostsNew from "./PostsNew";
 // import * as API from "../utils/api";
 import { fetchCategories } from "../actions/categories";
-import { fetchPosts } from "../actions/posts";
+import { fetchPosts, vote } from "../actions/posts";
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchCategories());
-    this.props.dispatch(fetchPosts());
+    this.props.fetchAllCategories();
+    this.props.fetchAllPosts();
   }
   render() {
     const {
@@ -19,6 +19,8 @@ class App extends Component {
       categories,
       isLoadingCategories,
       isLoadingPosts,
+      onDownVote,
+      onUpVote,
     } = this.props;
     return (
       <Router>
@@ -35,7 +37,7 @@ class App extends Component {
               <Route
                 exact
                 path="/"
-                render={props => <PostsList {...props} posts={posts} />}
+                render={props => <PostsList {...props} posts={posts} onDownVote={onDownVote} onUpVote={onUpVote} />}
               />
               <Route
                 path="/posts/new"
@@ -60,13 +62,22 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+const mapDispatchToProps = dispatch => ({
+  onUpVote(id) {dispatch(vote(id,'up'))},
+  onDownVote(id) {dispatch(vote(id,'down'))},
+  fetchAllPosts() {dispatch(fetchPosts())},
+  fetchAllCategories() {dispatch(fetchCategories())},
+})
+
+const mapStateToProps = state => (
+  {
     categories: state.categories.categories,
     isLoadingCategories: state.categories.isLoadingCategories,
     posts: state.posts.posts,
     isLoadingPosts: state.posts.isLoadingPosts,
-  };
-}
+    // onDownVote: this.props.onDownVote,
+    // onUpVote: this.props.onUpVote
+  }
+);
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

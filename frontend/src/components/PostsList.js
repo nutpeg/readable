@@ -41,7 +41,7 @@ class PostsList extends React.Component {
   };
 
   render() {
-    const { classes, posts } = this.props;
+    const { classes, posts, onDownVote, onUpVote } = this.props;
     return (
       <div className="content">
         <div className="posts-list__header">
@@ -62,13 +62,13 @@ class PostsList extends React.Component {
 
         <form className={classes.root} autoComplete="off">
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="sort-by">Sort by</InputLabel>
+            <InputLabel htmlFor="sortByValue">Sort by</InputLabel>
             <Select
               value={this.state.sortByValue}
               onChange={this.handleChange}
               inputProps={{
                 name: 'sortByValue',
-                id: 'sort-by',
+                id: 'sortByValue',
               }}
             >
               <MenuItem value={'timestamp'}>Most recent</MenuItem>
@@ -80,7 +80,7 @@ class PostsList extends React.Component {
         <ul>
           {posts.map(post => (
             <li className="post-item" key={post.id}>
-              <PostSummary post={post} />
+              <PostSummary post={post} onDownVote={onDownVote} onUpVote={onUpVote} />
             </li>
           ))}
         </ul>
