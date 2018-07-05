@@ -3,17 +3,20 @@ import { getCategories } from "../utils/api.js";
 export const FETCH_CATEGORIES_SUCCEEDED = "FETCH_CATEGORIES_SUCCEEDED";
 export const FETCH_CATEGORIES_STARTED = "FETCH_CATEGORIES_STARTED";
 
-export function fetchCategoriesStarted() {
-  return {
+export const fetchCategoriesStarted = () => (
+  {
     type: FETCH_CATEGORIES_STARTED,
-  };
-}
+  }
+)
 
-export function fetchCategoriesSucceeded(categories) {
-  return { type: FETCH_CATEGORIES_SUCCEEDED, categories: categories };
-}
+export const fetchCategoriesSucceeded = categories => (
+  {
+    type: FETCH_CATEGORIES_SUCCEEDED,
+    categories: categories,
+  }
+)
 
-export function fetchCategories() {
+export const fetchCategories = () => {
   return dispatch => {
     dispatch(fetchCategoriesStarted());
     getCategories().then(categories => {
