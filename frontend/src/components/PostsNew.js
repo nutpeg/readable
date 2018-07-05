@@ -1,41 +1,120 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import Typography from '@material-ui/core/Typography';
+import classNames from 'classnames';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import capitalize from '../utils/capitalize';
+
+const styles = theme => ({
+  container: {
+    // display: 'flex',
+    // flexWrap: 'wrap',
+    // width: '100%',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  textFieldWide: {
+    width: '100%',
+  },
+  menu: {
+    width: 200,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    marginLeft: 0,
+    minWidth: 120,
+  },
+});
 
 class PostsNew extends Component {
   state = {
-    title: "",
-    author: "",
-    body: "",
-    category: "",
+    title: '',
+    author: '',
+    body: '',
+    category: '',
   };
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   render() {
+    const { classes, categories } = this.props;
     return (
       <div className="content">
-        <h1>New Post</h1>
-        <form action="">
+        <Typography variant="display1" gutterBottom>
+          New Post
+        </Typography>
+        <form className={classes.container} noValidate autoComplete="off">
           <p>
-            <label htmlFor="author">Author</label>
-            <input type="text" name="author" placeholder="Author" />
+            <TextField
+              id="author"
+              label="Author"
+              className={classes.textField}
+              margin="normal"
+            />
           </p>
           <p>
-            <label htmlFor="title">Post Title</label>
-            <input type="text" name="title" placeholder="Title" />
+            <TextField
+              id="title"
+              label="Title"
+              className={classNames(classes.textField, classes.textFieldWide)}
+              margin="normal"
+            />
           </p>
           <p>
-            <label htmlFor="postBody">Post</label>
-            <input type="text" name="postBody" placeholder="Your post" />
+            <TextField
+              id="postBody"
+              label="Post Content"
+              multiline
+              rows="10"
+              className={classNames(classes.textField, classes.textFieldWide)}
+              margin="normal"
+            />
           </p>
           <p>
-            <select name="category">
-              {this.props.categories.map(category => (
-                <option key={category.name} value={`${category.name}`}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="category">Category</InputLabel>
+              <Select
+                value={this.state.category}
+                onChange={this.handleChange('category')}
+                inputProps={{
+                  name: 'category',
+                  id: 'category',
+                }}
+              >
+                {categories.map(category => (
+                  <MenuItem key={category.name} value={category.name}>
+                    {capitalize(category.name)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </p>
           <div>
-            <button type="submit">Create</button>
-            <button type="reset">Cancel</button>
+            <Button variant="outlined" className={classes.button}>
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              Create
+            </Button>
           </div>
         </form>
       </div>
@@ -43,4 +122,4 @@ class PostsNew extends Component {
   }
 }
 
-export default PostsNew;
+export default withStyles(styles)(PostsNew);
