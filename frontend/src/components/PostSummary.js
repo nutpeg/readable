@@ -42,7 +42,11 @@ const PostSummary = props => {
       <div className="list__controls-left">
         <div className="list__voting-controls">
           <div>
-            <Button className={classes.smallIconButton} size="small" onClick={() => onUpVote(post.id)}>
+            <Button
+              className={classes.smallIconButton}
+              size="small"
+              onClick={() => onUpVote(post.id)}
+            >
               <ExpandLessIcon className={classes.smallIcon} color="action" />
             </Button>
           </div>

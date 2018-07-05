@@ -15,9 +15,9 @@ export const fetchPostsSucceeded = posts => ({
   posts,
 });
 
-export const sortPosts = sortByValue => ({
+export const sortPosts = sortOrder => ({
   type: SORT_POSTS,
-  sortByValue,
+  sortOrder,
 });
 
 export const fetchPosts = sortOrder => {
@@ -33,7 +33,7 @@ export const fetchPosts = sortOrder => {
 export const vote = (id, direction) => {
   return dispatch => {
     API.vote(id, direction).then(posts => {
-      direction === 'up' ? dispatch(upVote(id)) : dispatch(downVote(id));
+      direction === 'upVote' ? dispatch(upVote(id)) : dispatch(downVote(id));
     });
   };
 };

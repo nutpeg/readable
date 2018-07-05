@@ -81,10 +81,10 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => ({
   onUpVote(id) {
-    dispatch(vote(id, 'up'));
+    dispatch(vote(id, 'upVote'));
   },
   onDownVote(id) {
-    dispatch(vote(id, 'down'));
+    dispatch(vote(id, 'downVote'));
   },
   fetchAllPosts(sortByValue) {
     dispatch(fetchPosts(sortByValue));

@@ -40,10 +40,9 @@ export default function posts(state = initialState, action) {
         posts: action.posts,
       };
     case SORT_POSTS:
-      console.log('o ', action)
       return {
         ...state,
-        posts: sortPosts(state.posts.slice(), action.sortByValue),
+        posts: sortPosts(state.posts.slice(), action.sortOrder),
         sortOrder: action.sortByValue,
       };
     case UPVOTE:
