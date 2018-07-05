@@ -2,6 +2,7 @@ import * as API from '../utils/api.js';
 
 export const FETCH_POSTS_SUCCEEDED = 'FETCH_POSTS_SUCCEEDED';
 export const FETCH_POSTS_STARTED = 'FETCH_POSTS_STARTED';
+export const SORT_POSTS = 'SORT_POSTS';
 export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
 
@@ -14,13 +15,17 @@ export const fetchPostsSucceeded = posts => ({
   posts,
 });
 
-export const fetchPosts = () => {
+export const sortPosts = sortByValue => ({
+  type: SORT_POSTS,
+  sortByValue,
+});
+
+export const fetchPosts = sortOrder => {
   return dispatch => {
     dispatch(fetchPostsStarted());
     API.getPosts().then(posts => {
-      setTimeout(() => {
         dispatch(fetchPostsSucceeded(posts));
-      }, 20);
+        dispatch(sortPosts(sortOrder));
     });
   };
 };

@@ -20,7 +20,6 @@ export function getPosts() {
   return client
     .get("/posts")
     .then(resp => {
-      console.log("Posts: ", resp);
       return resp.data;
     })
     .catch(error => console.error(error));
@@ -34,12 +33,6 @@ export function getInitialData() {
     }),
   );
 }
-
-// POST / posts /: id
-// USAGE:
-// Used for voting on a post
-// PARAMS:
-// option - String: Either "upVote" or "downVote"
 
 export function vote(id, direction) {
   return client

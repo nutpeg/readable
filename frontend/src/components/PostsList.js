@@ -35,9 +35,9 @@ class PostsList extends React.Component {
   };
 
   handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    this.setState({ [event.target.name]: event.target.value }, () =>
+      this.props.onSortPosts(this.state.sortByValue)
+    );
   };
 
   render() {
@@ -80,7 +80,11 @@ class PostsList extends React.Component {
         <ul>
           {posts.map(post => (
             <li className="post-item" key={post.id}>
-              <PostSummary post={post} onDownVote={onDownVote} onUpVote={onUpVote} />
+              <PostSummary
+                post={post}
+                onDownVote={onDownVote}
+                onUpVote={onUpVote}
+              />
             </li>
           ))}
         </ul>

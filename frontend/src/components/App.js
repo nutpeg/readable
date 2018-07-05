@@ -1,18 +1,20 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PostsList from "./PostsList";
-import PostsNav from "./PostsNav";
-import PostsNew from "./PostsNew";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PostsList from './PostsList';
+import PostsNav from './PostsNav';
+import PostsNew from './PostsNew';
 // import * as API from "../utils/api";
-import { fetchCategories } from "../actions/categories";
-import { fetchPosts, vote } from "../actions/posts";
+import { fetchCategories } from '../actions/categories';
+import { fetchPosts, vote, sortPosts } from '../actions/posts';
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchAllCategories();
-    this.props.fetchAllPosts();
+    this.props.fetchAllPosts(this.props.sortOrder);
+    // this.props.onSortPosts(this.props.sortOrder);
   }
+
   render() {
     const {
       posts,
@@ -21,6 +23,8 @@ class App extends Component {
       isLoadingPosts,
       onDownVote,
       onUpVote,
+      onSortPosts,
+      sortOrder,
     } = this.props;
     return (
       <Router>
@@ -37,7 +41,16 @@ class App extends Component {
               <Route
                 exact
                 path="/"
-                render={props => <PostsList {...props} posts={posts} onDownVote={onDownVote} onUpVote={onUpVote} />}
+                render={props => (
+                  <PostsList
+                    {...props}
+                    posts={posts}
+                    onSortPosts={onSortPosts}
+                    sortOrder={sortOrder}
+                    onDownVote={onDownVote}
+                    onUpVote={onUpVote}
+                  />
+                )}
               />
               <Route
                 path="/posts/new"
@@ -51,6 +64,10 @@ class App extends Component {
                     posts={posts.filter(
                       post => post.category === props.match.params.category,
                     )}
+                    sortPosts={onSortPosts}
+                    sortOrder={sortOrder}
+                    onDownVote={onDownVote}
+                    onUpVote={onUpVote}
                   />
                 )}
               />
@@ -63,21 +80,35 @@ class App extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onUpVote(id) {dispatch(vote(id,'up'))},
-  onDownVote(id) {dispatch(vote(id,'down'))},
-  fetchAllPosts() {dispatch(fetchPosts())},
-  fetchAllCategories() {dispatch(fetchCategories())},
-})
+  onUpVote(id) {
+    dispatch(vote(id, 'up'));
+  },
+  onDownVote(id) {
+    dispatch(vote(id, 'down'));
+  },
+  fetchAllPosts(sortByValue) {
+    dispatch(fetchPosts(sortByValue));
+  },
+  fetchAllCategories() {
+    dispatch(fetchCategories());
+  },
+  onSortPosts(sortOrder) {
+    dispatch(sortPosts(sortOrder));
+  },
+});
 
-const mapStateToProps = state => (
-  {
-    categories: state.categories.categories,
-    isLoadingCategories: state.categories.isLoadingCategories,
-    posts: state.posts.posts,
-    isLoadingPosts: state.posts.isLoadingPosts,
-    // onDownVote: this.props.onDownVote,
-    // onUpVote: this.props.onUpVote
-  }
-);
+const mapStateToProps = state => ({
+  categories: state.categories.categories,
+  isLoadingCategories: state.categories.isLoadingCategories,
+  posts: state.posts.posts,
+  isLoadingPosts: state.posts.isLoadingPosts,
+  sortOrder: state.posts.sortOrder,
+  // sortPosts: this.sortPosts,
+  // onDownVote: this.props.onDownVote,
+  // onUpVote: this.props.onUpVote
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);

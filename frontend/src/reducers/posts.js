@@ -3,11 +3,27 @@ import {
   FETCH_POSTS_SUCCEEDED,
   UPVOTE,
   DOWNVOTE,
+  SORT_POSTS,
 } from '../actions/posts';
 
 const initialState = {
   posts: [],
   isLoadingPosts: false,
+  sortOrder: 'timestamp',
+};
+
+const sortPosts = (posts, sortOrder) => {
+  if (sortOrder === 'timestamp') {
+    return posts.sort((a, b) => {
+      return a.timestamp < b.timestamp;
+    });
+  } else if (sortOrder === 'votes') {
+    return posts.sort((a, b) => {
+      return a.voteScore < b.voteScore
+    });
+  } else {
+    return posts;
+  }
 };
 
 export default function posts(state = initialState, action) {
@@ -23,8 +39,14 @@ export default function posts(state = initialState, action) {
         isLoadingPosts: false,
         posts: action.posts,
       };
+    case SORT_POSTS:
+      console.log('o ', action)
+      return {
+        ...state,
+        posts: sortPosts(state.posts.slice(), action.sortByValue),
+        sortOrder: action.sortByValue,
+      };
     case UPVOTE:
-      console.log('id', state.posts[action.postId]);
       return {
         ...state,
         posts: state.posts.map(
