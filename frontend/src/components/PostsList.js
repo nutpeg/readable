@@ -24,6 +24,9 @@ const styles = theme => ({
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
 });
 
 class PostsList extends React.Component {
@@ -32,7 +35,9 @@ class PostsList extends React.Component {
   };
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   render() {

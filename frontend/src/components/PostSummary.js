@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { withStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
+import { prettyDate } from "../utils/prettyDate";
 
 const styles = theme => ({
   icon: {
@@ -61,7 +62,7 @@ const PostSummary = props => {
         <p>
           <span className="lighter">by </span>
           <span className="bolder">{post.author}</span>
-          <span className="lighter">{` on ${post.timestamp}`}</span>
+        <span className="lighter">{` on ${prettyDate(post.timestamp)}`}</span>
           <Badge className={classes.icon} badgeContent={post.commentCount} color="primary">
             <ModeCommentIcon className={classes.commentIcon} />
           </Badge>
