@@ -51,6 +51,26 @@ class PostsNew extends Component {
     });
   };
 
+  resetForm = () => {
+    this.setState({
+      title: '',
+      author: '',
+      body: '',
+      category: '',
+    });
+  };
+
+  handleCreatePost = e => {
+    e.preventDefault();
+    this.props.onCreatePost({
+      title: this.state.title,
+      author: this.state.author,
+      body: this.state.body,
+      category: this.state.category,
+    });
+    this.resetForm();
+  };
+
   render() {
     const { classes, categories } = this.props;
     return (
@@ -58,60 +78,69 @@ class PostsNew extends Component {
         <Typography variant="display1" gutterBottom>
           New Post
         </Typography>
-        <form className={classes.container} noValidate autoComplete="off">
-          <p>
-            <TextField
-              id="author"
-              label="Author"
-              className={classes.textField}
-              margin="normal"
-            />
-          </p>
-          <p>
-            <TextField
-              id="title"
-              label="Title"
-              className={classNames(classes.textField, classes.textFieldWide)}
-              margin="normal"
-            />
-          </p>
-          <p>
-            <TextField
-              id="postBody"
-              label="Post Content"
-              multiline
-              rows="10"
-              className={classNames(classes.textField, classes.textFieldWide)}
-              margin="normal"
-            />
-          </p>
-          <p>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="category">Category</InputLabel>
-              <Select
-                value={this.state.category}
-                onChange={this.handleChange('category')}
-                inputProps={{
-                  name: 'category',
-                  id: 'category',
-                }}
-              >
-                {categories.map(category => (
-                  <MenuItem key={category.name} value={category.name}>
-                    {capitalize(category.name)}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </p>
+        <form
+          className={classes.container}
+          noValidate
+          autoComplete="off"
+          onSubmit={this.handleCreatePost}
+        >
+          <TextField
+            id="author"
+            label="Author"
+            className={classes.textField}
+            margin="normal"
+            value={this.state.author}
+            onChange={this.handleChange('author')}
+          />
+
+          <TextField
+            id="title"
+            label="Title"
+            className={classNames(classes.textField, classes.textFieldWide)}
+            margin="normal"
+            value={this.state.title}
+            onChange={this.handleChange('title')}
+          />
+
+          <TextField
+            id="body"
+            label="Post Content"
+            multiline
+            rows="10"
+            className={classNames(classes.textField, classes.textFieldWide)}
+            margin="normal"
+            value={this.state.body}
+            onChange={this.handleChange('body')}
+          />
+
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="category">Category</InputLabel>
+            <Select
+              value={this.state.category}
+              onChange={this.handleChange('category')}
+              inputProps={{ name: 'category', id: 'category' }}
+            >
+              {categories.map(category => (
+                <MenuItem key={category.name} value={category.name}>
+                  {capitalize(category.name)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
           <div>
-            <Button variant="outlined" className={classes.button}>
+            <Button
+              variant="outlined"
+              className={classes.button}
+              onClick={this.resetForm}
+            >
               Cancel
             </Button>
             <Button
               variant="contained"
               color="primary"
               className={classes.button}
+              type="submit"
             >
               Create
             </Button>
