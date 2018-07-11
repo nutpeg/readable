@@ -73,10 +73,6 @@ a {
   align-items: flex-start;
 }
 
-.posts-list__header > h1 {
-  /* float: left; */
-}
-
 .posts-list__header-button {
   margin-left: auto;
 }
