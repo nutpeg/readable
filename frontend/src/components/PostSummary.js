@@ -36,7 +36,7 @@ const styles = theme => ({
 });
 
 const PostSummary = props => {
-  const { classes, post, onUpVote, onDownVote } = props;
+  const { classes, post, onUpVote, onDownVote, onDeletePost, onEditPost } = props;
   return (
     <div className="list">
       <div className="list__controls-left">
@@ -80,10 +80,10 @@ const PostSummary = props => {
         </p>
       </div>
       <div className="list__controls-right">
-        <IconButton aria-label="Edit">
+        <IconButton aria-label="Edit" onClick={() => onEditPost(post.id)}>
           <EditIcon />
         </IconButton>
-        <IconButton aria-label="Delete">
+        <IconButton aria-label="Delete" onClick={() => onDeletePost(post.id)}>
           <DeleteIcon />
         </IconButton>
       </div>
