@@ -4,6 +4,8 @@ import {
   UPVOTE,
   DOWNVOTE,
   SORT_POSTS,
+  DELETE_POST,
+  CREATE_POST_SUCCEEDED,
 } from '../actions/posts';
 
 const initialState = {
@@ -12,18 +14,8 @@ const initialState = {
   sortOrder: 'timestamp',
 };
 
-const sortPosts = (posts, sortOrder) => {
-  if (sortOrder === 'timestamp') {
-    return posts.sort((a, b) => {
-      return a.timestamp < b.timestamp;
-    });
-  } else if (sortOrder === 'votes') {
-    return posts.sort((a, b) => {
-      return a.voteScore < b.voteScore
-    });
-  } else {
-    return posts;
-  }
+export const getSortedPosts = (posts, sortOrder) => {
+  return posts.sort((a, b) => a[sortOrder] < b[sortOrder]);
 };
 
 export default function posts(state = initialState, action) {
@@ -42,8 +34,7 @@ export default function posts(state = initialState, action) {
     case SORT_POSTS:
       return {
         ...state,
-        posts: sortPosts(state.posts.slice(), action.sortOrder),
-        sortOrder: action.sortByValue,
+        sortOrder: action.sortOrder,
       };
     case UPVOTE:
       return {
@@ -64,6 +55,16 @@ export default function posts(state = initialState, action) {
               ? { ...post, voteScore: post.voteScore - 1 }
               : post,
         ),
+      };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post.id !== action.postId),
+      };
+    case CREATE_POST_SUCCEEDED:
+      return {
+        ...state,
+        posts: [...state.posts, action.post],
       };
     default:
       return state;

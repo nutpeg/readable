@@ -6,13 +6,20 @@ import PostsNav from './PostsNav';
 import PostsNew from './PostsNew';
 // import * as API from "../utils/api";
 import { fetchCategories } from '../actions/categories';
-import { fetchPosts, vote, sortPosts } from '../actions/posts';
+import {
+  fetchPosts,
+  vote,
+  sortPosts,
+  deletePost,
+  // editPost,
+  createPost,
+} from '../actions/posts';
+import { getSortedPosts } from '../reducers/posts'
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchAllCategories();
-    this.props.fetchAllPosts(this.props.sortOrder);
-    // this.props.onSortPosts(this.props.sortOrder);
+    this.props.fetchAllPosts();
   }
 
   render() {
@@ -25,6 +32,9 @@ class App extends Component {
       onUpVote,
       onSortPosts,
       sortOrder,
+      onDeletePost,
+      onEditPost,
+      onCreatePost,
     } = this.props;
     return (
       <Router>
@@ -49,12 +59,19 @@ class App extends Component {
                     sortOrder={sortOrder}
                     onDownVote={onDownVote}
                     onUpVote={onUpVote}
+                    onDeletePost={onDeletePost}
+                    onEditPost={onEditPost}
                   />
                 )}
               />
               <Route
                 path="/posts/new"
-                render={props => <PostsNew categories={categories} />}
+                render={props => (
+                  <PostsNew
+                    categories={categories}
+                    onCreatePost={onCreatePost}
+                  />
+                )}
               />
               <Route
                 path="/:category"
@@ -64,10 +81,12 @@ class App extends Component {
                     posts={posts.filter(
                       post => post.category === props.match.params.category,
                     )}
-                    sortPosts={onSortPosts}
+                    onSortPosts={onSortPosts}
                     sortOrder={sortOrder}
                     onDownVote={onDownVote}
                     onUpVote={onUpVote}
+                    onDeletePost={onDeletePost}
+                    onEditPost={onEditPost}
                   />
                 )}
               />
@@ -86,8 +105,8 @@ const mapDispatchToProps = dispatch => ({
   onDownVote(id) {
     dispatch(vote(id, 'downVote'));
   },
-  fetchAllPosts(sortByValue) {
-    dispatch(fetchPosts(sortByValue));
+  fetchAllPosts(sortOrder) {
+    dispatch(fetchPosts());
   },
   fetchAllCategories() {
     dispatch(fetchCategories());
@@ -95,17 +114,23 @@ const mapDispatchToProps = dispatch => ({
   onSortPosts(sortOrder) {
     dispatch(sortPosts(sortOrder));
   },
+  onDeletePost(id) {
+    dispatch(deletePost(id));
+  },
+  // onEditPost(post) {
+  //   dispatch(editPost(post));
+  // },
+  onCreatePost(post) {
+    dispatch(createPost(post));
+  },
 });
 
 const mapStateToProps = state => ({
   categories: state.categories.categories,
   isLoadingCategories: state.categories.isLoadingCategories,
-  posts: state.posts.posts,
+  posts: getSortedPosts(state.posts.posts.slice(), state.posts.sortOrder),
   isLoadingPosts: state.posts.isLoadingPosts,
   sortOrder: state.posts.sortOrder,
-  // sortPosts: this.sortPosts,
-  // onDownVote: this.props.onDownVote,
-  // onUpVote: this.props.onUpVote
 });
 
 export default connect(

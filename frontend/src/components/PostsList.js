@@ -31,17 +31,24 @@ const styles = theme => ({
 
 class PostsList extends React.Component {
   state = {
-    sortByValue: 'timestamp',
+    sortOrder: this.props.sortOrder,
   };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value }, () =>
-      this.props.onSortPosts(this.state.sortByValue)
+      this.props.onSortPosts(this.state.sortOrder),
     );
   };
 
   render() {
-    const { classes, posts, onDownVote, onUpVote } = this.props;
+    const {
+      classes,
+      posts,
+      onDownVote,
+      onUpVote,
+      onDeletePost,
+      onEditPost,
+    } = this.props;
     return (
       <div className="content">
         <div className="posts-list__header">
@@ -62,17 +69,14 @@ class PostsList extends React.Component {
 
         <form className={classes.root} autoComplete="off">
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="sortByValue">Sort by</InputLabel>
+            <InputLabel htmlFor="sortOrder">Sort by</InputLabel>
             <Select
-              value={this.state.sortByValue}
+              value={this.state.sortOrder}
               onChange={this.handleChange}
-              inputProps={{
-                name: 'sortByValue',
-                id: 'sortByValue',
-              }}
+              inputProps={{ name: 'sortOrder', id: 'sortOrder' }}
             >
               <MenuItem value={'timestamp'}>Most recent</MenuItem>
-              <MenuItem value={'votes'}>Most votes</MenuItem>
+              <MenuItem value={'voteScore'}>Most votes</MenuItem>
             </Select>
           </FormControl>
         </form>
@@ -84,6 +88,8 @@ class PostsList extends React.Component {
                 post={post}
                 onDownVote={onDownVote}
                 onUpVote={onUpVote}
+                onDeletePost={onDeletePost}
+                onEditPost={onEditPost}
               />
             </li>
           ))}

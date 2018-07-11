@@ -5,6 +5,8 @@ export const FETCH_POSTS_STARTED = 'FETCH_POSTS_STARTED';
 export const SORT_POSTS = 'SORT_POSTS';
 export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
+export const DELETE_POST = 'DELETE_POST';
+export const CREATE_POST_SUCCEEDED = 'CREATE_POST_SUCCEEDED';
 
 export const fetchPostsStarted = () => ({
   type: FETCH_POSTS_STARTED,
@@ -20,12 +22,11 @@ export const sortPosts = sortOrder => ({
   sortOrder,
 });
 
-export const fetchPosts = sortOrder => {
+export const fetchPosts = () => {
   return dispatch => {
     dispatch(fetchPostsStarted());
     API.getPosts().then(posts => {
-        dispatch(fetchPostsSucceeded(posts));
-        dispatch(sortPosts(sortOrder));
+      dispatch(fetchPostsSucceeded(posts));
     });
   };
 };
@@ -47,3 +48,37 @@ export const downVote = postId => ({
   type: DOWNVOTE,
   postId,
 });
+
+export const deletePost = id => {
+  return dispatch => {
+    API.deletePost(id).then(resp => {
+      dispatch(deletePostSucceeded(id));
+    });
+  };
+};
+
+export const deletePostSucceeded = postId => ({
+  type: DELETE_POST,
+  postId,
+});
+
+export const createPostSucceeded = post => ({
+  type: CREATE_POST_SUCCEEDED,
+  post,
+});
+
+export const createPost = ({ author, title, body, category }) => {
+  const timestamp = Date.now();
+  return dispatch => {
+    API.createPost({
+      author,
+      title,
+      body,
+      category,
+      id: `${timestamp}`,
+      timestamp,
+    }).then(post => {
+      dispatch(createPostSucceeded(post));
+    });
+  };
+};
