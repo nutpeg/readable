@@ -30,14 +30,9 @@ const styles = theme => ({
 });
 
 class PostsList extends React.Component {
-  state = {
-    sortOrder: this.props.sortOrder,
-  };
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value }, () =>
-      this.props.onSortPosts(this.state.sortOrder),
-    );
+    this.props.onSortOrderChange(event.target.value);
   };
 
   render() {
@@ -48,6 +43,7 @@ class PostsList extends React.Component {
       onUpVote,
       onDeletePost,
       onEditPost,
+      sortOrder,
     } = this.props;
     return (
       <div className="content">
@@ -71,7 +67,7 @@ class PostsList extends React.Component {
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="sortOrder">Sort by</InputLabel>
             <Select
-              value={this.state.sortOrder}
+              value={sortOrder}
               onChange={this.handleChange}
               inputProps={{ name: 'sortOrder', id: 'sortOrder' }}
             >

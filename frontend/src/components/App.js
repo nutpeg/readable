@@ -30,7 +30,7 @@ class App extends Component {
       isLoadingPosts,
       onDownVote,
       onUpVote,
-      onSortPosts,
+      onSortOrderChange,
       sortOrder,
       onDeletePost,
       onEditPost,
@@ -55,7 +55,7 @@ class App extends Component {
                   <PostsList
                     {...props}
                     posts={posts}
-                    onSortPosts={onSortPosts}
+                    onSortOrderChange={onSortOrderChange}
                     sortOrder={sortOrder}
                     onDownVote={onDownVote}
                     onUpVote={onUpVote}
@@ -81,7 +81,7 @@ class App extends Component {
                     posts={posts.filter(
                       post => post.category === props.match.params.category,
                     )}
-                    onSortPosts={onSortPosts}
+                    onSortOrderChange={onSortOrderChange}
                     sortOrder={sortOrder}
                     onDownVote={onDownVote}
                     onUpVote={onUpVote}
@@ -111,7 +111,7 @@ const mapDispatchToProps = dispatch => ({
   fetchAllCategories() {
     dispatch(fetchCategories());
   },
-  onSortPosts(sortOrder) {
+  onSortOrderChange(sortOrder) {
     dispatch(sortPosts(sortOrder));
   },
   onDeletePost(id) {
