@@ -20,24 +20,24 @@ const styles = theme => ({
 });
 
 const VotingControls = props => {
-  const { classes, post, onUpVote, onDownVote } = props;
+  const { classes, item, onUpVote, onDownVote } = props;
   return (
     <div className="list__voting-controls">
       <div>
         <Button
           className={classes.smallIconButton}
           size="small"
-          onClick={() => onUpVote(post.id)}
+          onClick={() => onUpVote(item.id)}
         >
           <ExpandLessIcon className={classes.smallIcon} color="action" />
         </Button>
       </div>
-      <Typography variant="caption">{`${post.voteScore} VOTES`}</Typography>
+      <Typography variant="caption">{`${item.voteScore} VOTES`}</Typography>
       <div>
         <Button
           className={classes.smallIconButton}
           size="small"
-          onClick={() => onDownVote(post.id)}
+          onClick={() => onDownVote(item.id)}
         >
           <ExpandMoreIcon className={classes.smallIcon} color="action" />
         </Button>

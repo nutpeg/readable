@@ -31,7 +31,7 @@ const PostSummary = props => {
     <div className="list">
       <div className="list__controls-left">
         <VotingControls
-          post={post}
+          item={post}
           onUpVote={onUpVote}
           onDownVote={onDownVote}
         />
