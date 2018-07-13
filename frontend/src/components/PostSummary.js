@@ -1,16 +1,14 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { withStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 import { prettyDate } from '../utils/prettyDate';
+import VotingControls from './VotingControls';
 
 const styles = theme => ({
   icon: {
@@ -40,27 +38,11 @@ const PostSummary = props => {
   return (
     <div className="list">
       <div className="list__controls-left">
-        <div className="list__voting-controls">
-          <div>
-            <Button
-              className={classes.smallIconButton}
-              size="small"
-              onClick={() => onUpVote(post.id)}
-            >
-              <ExpandLessIcon className={classes.smallIcon} color="action" />
-            </Button>
-          </div>
-          <Typography variant="caption">{`${post.voteScore} VOTES`}</Typography>
-          <div>
-            <Button
-              className={classes.smallIconButton}
-              size="small"
-              onClick={() => onDownVote(post.id)}
-            >
-              <ExpandMoreIcon className={classes.smallIcon} color="action" />
-            </Button>
-          </div>
-        </div>
+        <VotingControls
+          post={post}
+          onUpVote={onUpVote}
+          onDownVote={onDownVote}
+          />
       </div>
       <div className="list__item">
         <Typography variant="subheading" gutterBottom>
