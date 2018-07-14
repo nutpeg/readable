@@ -14,8 +14,10 @@ const initialState = {
   sortOrder: 'timestamp',
 };
 
+const removeDeleted = items => items.filter(item => !item.deleted);
+
 export const getSortedPosts = (posts, sortOrder) => {
-  return posts.sort((a, b) => a[sortOrder] < b[sortOrder]);
+  return removeDeleted(posts).sort((a, b) => a[sortOrder] < b[sortOrder]);
 };
 
 export default function posts(state = initialState, action) {
@@ -59,7 +61,12 @@ export default function posts(state = initialState, action) {
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter(post => post.id !== action.postId),
+        posts: state.posts.map(
+          post =>
+            post.id === action.postId
+              ? { ...post, deleted: true}
+              : post,
+        ),
       };
     case CREATE_POST_SUCCEEDED:
       return {
