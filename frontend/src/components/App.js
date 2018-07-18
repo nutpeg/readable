@@ -7,9 +7,6 @@ import PostsNew from './PostsNew';
 import { fetchCategories } from '../actions/categories';
 import {
   fetchPosts,
-  sortPosts,
-  deletePost,
-  // editPost,
   createPost,
 } from '../actions/posts';
 import { getSortedPosts } from '../reducers/posts'
@@ -26,10 +23,6 @@ class App extends Component {
       categories,
       isLoadingCategories,
       isLoadingPosts,
-      onSortOrderChange,
-      sortOrder,
-      onDeletePost,
-      onEditPost,
       onCreatePost,
     } = this.props;
     return (
@@ -51,8 +44,6 @@ class App extends Component {
                   <PostsList
                     {...props}
                     posts={posts}
-                    onSortOrderChange={onSortOrderChange}
-                    sortOrder={sortOrder}
                   />
                 )}
               />
@@ -73,8 +64,6 @@ class App extends Component {
                     posts={posts.filter(
                       post => post.category === props.match.params.category,
                     )}
-                    onSortOrderChange={onSortOrderChange}
-                    sortOrder={sortOrder}
                   />
                 )}
               />
@@ -93,9 +82,6 @@ const mapDispatchToProps = dispatch => ({
   fetchAllCategories() {
     dispatch(fetchCategories());
   },
-  onSortOrderChange(sortOrder) {
-    dispatch(sortPosts(sortOrder));
-  },
   onCreatePost(post) {
     dispatch(createPost(post));
   },
@@ -106,7 +92,6 @@ const mapStateToProps = state => ({
   isLoadingCategories: state.categories.isLoadingCategories,
   posts: getSortedPosts(state.posts.posts, state.posts.sortOrder),
   isLoadingPosts: state.posts.isLoadingPosts,
-  sortOrder: state.posts.sortOrder,
 });
 
 export default connect(

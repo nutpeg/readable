@@ -19,20 +19,20 @@ const styles = theme => ({
   },
 });
 
-class SortOrderControl extends React.Component {
+class SortControl extends React.Component {
   handleChange = event => {
     this.props.onSortOrderChange(event.target.value);
   };
 
   render() {
-    const { classes, sortOrder, onChange } = this.props;
+    const { classes, sortOrder } = this.props;
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="sortOrder">Sort by</InputLabel>
           <Select
             value={sortOrder}
-            onChange={onChange}
+            onChange={this.handleChange}
             inputProps={{ name: 'sortOrder', id: 'sortOrder' }}
           >
             <MenuItem value={'timestamp'}>Most recent</MenuItem>
@@ -44,4 +44,4 @@ class SortOrderControl extends React.Component {
   }
 }
 
-export default withStyles(styles)(SortOrderControl);
+export default withStyles(styles)(SortControl);

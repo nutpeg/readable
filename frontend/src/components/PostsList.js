@@ -1,17 +1,14 @@
 import React from 'react';
-import SortOrderControl from './SortOrderControl';
 import ListItemContainer from "../containers/ListItemContainer";
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import SortControlContainer from '../containers/SortControlContainer';
 
 class PostsList extends React.Component {
-  handleChange = event => {
-    this.props.onSortOrderChange(event.target.value);
-  };
 
   render() {
-    const { posts, sortOrder } = this.props;
+    const { posts } = this.props;
     return (
       <div className="content">
         <div className="posts-list__header">
@@ -30,11 +27,7 @@ class PostsList extends React.Component {
           </div>
         </div>
 
-        <SortOrderControl
-          sortOrder={sortOrder}
-          onChange={this.handleChange}
-          inputProps={{ name: 'sortOrder', id: 'sortOrder' }}
-        />
+        <SortControlContainer />
 
         <ul>
           {posts.map(post => (
