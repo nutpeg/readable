@@ -26,8 +26,6 @@ class App extends Component {
       categories,
       isLoadingCategories,
       isLoadingPosts,
-      onDownVote,
-      onUpVote,
       onSortOrderChange,
       sortOrder,
       onDeletePost,
@@ -55,8 +53,6 @@ class App extends Component {
                     posts={posts}
                     onSortOrderChange={onSortOrderChange}
                     sortOrder={sortOrder}
-                    onDownVote={onDownVote}
-                    onUpVote={onUpVote}
                     onDeletePost={onDeletePost}
                     onEditPost={onEditPost}
                   />
@@ -81,8 +77,6 @@ class App extends Component {
                     )}
                     onSortOrderChange={onSortOrderChange}
                     sortOrder={sortOrder}
-                    onDownVote={onDownVote}
-                    onUpVote={onUpVote}
                     onDeletePost={onDeletePost}
                     onEditPost={onEditPost}
                   />
