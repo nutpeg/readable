@@ -4,11 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PostsList from './PostsList';
 import PostsNav from './PostsNav';
 import PostsNew from './PostsNew';
-// import * as API from "../utils/api";
 import { fetchCategories } from '../actions/categories';
 import {
   fetchPosts,
-  vote,
   sortPosts,
   deletePost,
   // editPost,
@@ -99,12 +97,6 @@ class App extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onUpVote(id) {
-    dispatch(vote(id, 'upVote'));
-  },
-  onDownVote(id) {
-    dispatch(vote(id, 'downVote'));
-  },
   fetchAllPosts(sortOrder) {
     dispatch(fetchPosts());
   },

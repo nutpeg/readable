@@ -39,8 +39,6 @@ class PostsList extends React.Component {
     const {
       classes,
       posts,
-      onDownVote,
-      onUpVote,
       onDeletePost,
       onEditPost,
       sortOrder,
@@ -82,8 +80,6 @@ class PostsList extends React.Component {
             <li className="post-item" key={post.id}>
               <PostSummary
                 post={post}
-                onDownVote={onDownVote}
-                onUpVote={onUpVote}
                 onDeletePost={onDeletePost}
                 onEditPost={onEditPost}
               />

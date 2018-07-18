@@ -1,6 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import VotingControls from './VotingControls';
+// import VotingControls from './VotingControls';
+import VotingControlsContainer from '../containers/VotingControlsContainer';
 import EditDeleteControls from './EditDeleteControls';
 import ItemInfo from './ItemInfo';
 
@@ -15,8 +16,10 @@ const PostSummary = props => {
   return (
     <div className="list">
       <div className="list__controls-left">
-        <VotingControls
-          item={post}
+        <VotingControlsContainer
+          // post={post}
+          id={post.id}
+          voteScore={post.voteScore}
           onUpVote={onUpVote}
           onDownVote={onDownVote}
         />
