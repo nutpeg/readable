@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import VotingControlsContainer from '../containers/VotingControlsContainer';
+import VotingControls from './VotingControls';
 import EditDeleteControls from './EditDeleteControls';
 import ItemInfo from './ItemInfo';
 
@@ -9,7 +9,7 @@ const ListItem = props => {
   return (
     <div className="list">
       <div className="list__controls-left">
-        <VotingControlsContainer
+        <VotingControls
           id={post.id}
           voteScore={post.voteScore}
           onUpVote={onUpVote}
