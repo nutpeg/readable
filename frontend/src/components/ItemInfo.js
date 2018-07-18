@@ -16,15 +16,15 @@ const styles = theme => ({
 });
 
 const ItemInfo = props => {
-  const { classes, item, } = props;
+  const { classes, author, timestamp, commentCount } = props;
   return (
     <React.Fragment>
       <span className="lighter">by </span>
-      <span className="bolder">{item.author}</span>
-      <span className="lighter">{` on ${prettyDate(item.timestamp)}`}</span>
+      <span className="bolder">{author}</span>
+      <span className="lighter">{` on ${prettyDate(timestamp)}`}</span>
       <Badge
         className={classes.icon}
-        badgeContent={item.commentCount}
+        badgeContent={commentCount}
         color="primary"
       >
         <ModeCommentIcon className={classes.commentIcon} />

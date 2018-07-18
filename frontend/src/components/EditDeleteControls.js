@@ -4,13 +4,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
 const EditDeleteControls = props => {
-  const { item, onEditItem, onDeleteItem } = props;
+  const { id, onEditItem, onDeleteItem } = props;
   return (
     <React.Fragment>
-      <IconButton aria-label="Edit" onClick={() => onEditItem(item.id)}>
+      <IconButton aria-label="Edit" onClick={() => onEditItem(id)}>
         <EditIcon />
       </IconButton>
-      <IconButton aria-label="Delete" onClick={() => onDeleteItem(item.id)}>
+      <IconButton aria-label="Delete" onClick={() => onDeleteItem(id)}>
         <DeleteIcon />
       </IconButton>
     </React.Fragment>
