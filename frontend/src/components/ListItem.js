@@ -5,34 +5,34 @@ import EditDeleteControls from './EditDeleteControls';
 import ItemInfo from './ItemInfo';
 
 const ListItem = props => {
-  const { post, onUpVote, onDownVote, onDeletePost, onEditPost } = props;
+  const { item, onUpVote, onDownVote, onDeleteItem, onEditItem } = props;
   return (
     <div className="list">
       <div className="list__controls-left">
         <VotingControls
-          id={post.id}
-          voteScore={post.voteScore}
+          id={item.id}
+          voteScore={item.voteScore}
           onUpVote={onUpVote}
           onDownVote={onDownVote}
         />
       </div>
       <div className="list__item">
         <Typography variant="subheading" gutterBottom>
-          {post.title}
+          {item.title}
         </Typography>
         <p>
           <ItemInfo
-            author={post.author}
-            commentCount={post.commentCount}
-            timestamp={post.timestamp}
+            author={item.author}
+            commentCount={item.commentCount}
+            timestamp={item.timestamp}
           />
         </p>
       </div>
       <div className="list__controls-right">
         <EditDeleteControls
-          id={post.id}
-          onDeleteItem={onDeletePost}
-          onEditItem={onEditPost}
+          id={item.id}
+          onDeleteItem={onDeleteItem}
+          onEditItem={onEditItem}
         />
       </div>
     </div>

@@ -13,10 +13,10 @@ const mapDispatchToProps = dispatch => ({
   onDownVote(id) {
     dispatch(vote(id, 'downVote'));
   },
-  onDeletePost(id) {
+  onDeleteItem(id) {
     dispatch(deletePost(id));
   },
-  // onEditPost(post) {
+  // onEditItem(post) {
   //   dispatch(editPost(post));
   // },
 });
