@@ -1,6 +1,6 @@
 import React from 'react';
 import SortOrderControl from './SortOrderControl';
-import ListItem from './ListItem';
+import ListItemContainer from "../containers/ListItemContainer";
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -11,7 +11,7 @@ class PostsList extends React.Component {
   };
 
   render() {
-    const { posts, onDeletePost, onEditPost, sortOrder } = this.props;
+    const { posts, sortOrder } = this.props;
     return (
       <div className="content">
         <div className="posts-list__header">
@@ -39,11 +39,7 @@ class PostsList extends React.Component {
         <ul>
           {posts.map(post => (
             <li className="post-item" key={post.id}>
-              <ListItem
-                post={post}
-                onDeletePost={onDeletePost}
-                onEditPost={onEditPost}
-              />
+              <ListItemContainer post={post} />
             </li>
           ))}
         </ul>
