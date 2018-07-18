@@ -1,6 +1,6 @@
 import React from 'react';
 import SortOrderControl from './SortOrderControl';
-import PostSummary from './PostSummary';
+import ListItem from './ListItem';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -39,7 +39,7 @@ class PostsList extends React.Component {
         <ul>
           {posts.map(post => (
             <li className="post-item" key={post.id}>
-              <PostSummary
+              <ListItem
                 post={post}
                 onDeletePost={onDeletePost}
                 onEditPost={onEditPost}

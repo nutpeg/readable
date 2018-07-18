@@ -5,7 +5,7 @@ import VotingControlsContainer from '../containers/VotingControlsContainer';
 import EditDeleteControls from './EditDeleteControls';
 import ItemInfo from './ItemInfo';
 
-const PostSummary = props => {
+const ListItem = props => {
   const {
     post,
     onUpVote,
@@ -43,4 +43,4 @@ const PostSummary = props => {
   );
 };
 
-export default PostSummary;
+export default ListItem;
