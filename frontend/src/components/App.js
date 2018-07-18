@@ -53,8 +53,6 @@ class App extends Component {
                     posts={posts}
                     onSortOrderChange={onSortOrderChange}
                     sortOrder={sortOrder}
-                    onDeletePost={onDeletePost}
-                    onEditPost={onEditPost}
                   />
                 )}
               />
@@ -77,8 +75,6 @@ class App extends Component {
                     )}
                     onSortOrderChange={onSortOrderChange}
                     sortOrder={sortOrder}
-                    onDeletePost={onDeletePost}
-                    onEditPost={onEditPost}
                   />
                 )}
               />
@@ -100,12 +96,6 @@ const mapDispatchToProps = dispatch => ({
   onSortOrderChange(sortOrder) {
     dispatch(sortPosts(sortOrder));
   },
-  onDeletePost(id) {
-    dispatch(deletePost(id));
-  },
-  // onEditPost(post) {
-  //   dispatch(editPost(post));
-  // },
   onCreatePost(post) {
     dispatch(createPost(post));
   },
