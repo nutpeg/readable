@@ -114,7 +114,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   categories: state.categories.categories,
   isLoadingCategories: state.categories.isLoadingCategories,
-  posts: getSortedPosts(state.posts.posts.slice(), state.posts.sortOrder),
+  posts: getSortedPosts(state.posts.posts, state.posts.sortOrder),
   isLoadingPosts: state.posts.isLoadingPosts,
   sortOrder: state.posts.sortOrder,
 });
