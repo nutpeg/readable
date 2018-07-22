@@ -85,6 +85,15 @@ a {
   margin-bottom: 1.5em;
 }
 
+.post-info {
+  display: flex;
+  align-items: baseline;
+}
+
+.post-body {
+  margin-top: 2em;
+}
+
 .list {
   display: flex;
   align-items: flex-start;
@@ -116,6 +125,12 @@ a {
   flex-direction: column;
   align-items: center;
   min-width: 3.5em;
+}
+
+.post .list__voting-controls {
+  align-self: center;
+  flex-direction: row;
+  /* padding-left: 2em; */
 }
 
 .list__controls-right {

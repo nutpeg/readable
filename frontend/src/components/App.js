@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PostsList from './PostsList';
 import PostsNav from './PostsNav';
 import PostsNew from './PostsNew';
@@ -27,13 +28,14 @@ class App extends Component {
       <Router>
         <div className="main">
           {isLoadingCategories === true ? (
-            <nav>Loading...</nav>
+            <nav><CircularProgress /></nav>
           ) : (
             <PostsNav categories={categories} />
           )}
           {isLoading === true ? (
-            <div className="content">Loading...</div>
-            
+            <div className="content">
+              <CircularProgress />
+            </div>
           ) : (
             <Switch>
               <Route
