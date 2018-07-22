@@ -1,6 +1,8 @@
 import {
   FETCH_POSTS_STARTED,
   FETCH_POSTS_SUCCEEDED,
+  FETCH_POST_STARTED,
+  FETCH_POST_SUCCEEDED,
   UPVOTE,
   DOWNVOTE,
   SORT_POSTS,
@@ -10,7 +12,7 @@ import {
 
 const initialState = {
   posts: [],
-  isLoadingPosts: false,
+  isLoading: false,
   sortOrder: 'timestamp',
 };
 
@@ -25,13 +27,29 @@ export default function posts(state = initialState, action) {
     case FETCH_POSTS_STARTED:
       return {
         ...state,
-        isLoadingPosts: true,
+        isLoading: true,
       };
     case FETCH_POSTS_SUCCEEDED:
       return {
         ...state,
-        isLoadingPosts: false,
+        isLoading: false,
         posts: action.posts,
+      };
+    case FETCH_POST_STARTED:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case FETCH_POST_SUCCEEDED:
+      return {
+        ...state,
+        isLoading: false,
+        posts: state.posts.map(
+          post =>
+            post.id === action.post.id
+              ? action.post
+              : post,
+        ),
       };
     case SORT_POSTS:
       return {

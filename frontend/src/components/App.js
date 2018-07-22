@@ -4,12 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PostsList from './PostsList';
 import PostsNav from './PostsNav';
 import PostsNew from './PostsNew';
+import Post from './Post';
 import { fetchCategories } from '../actions/categories';
-import {
-  fetchPosts,
-  createPost,
-} from '../actions/posts';
-import { getSortedPosts } from '../reducers/posts'
+import { fetchPosts, createPost } from '../actions/posts';
+import { getSortedPosts } from '../reducers/posts';
 
 class App extends Component {
   componentDidMount() {
@@ -22,7 +20,7 @@ class App extends Component {
       posts,
       categories,
       isLoadingCategories,
-      isLoadingPosts,
+      isLoading,
       onCreatePost,
     } = this.props;
     return (
@@ -33,19 +31,15 @@ class App extends Component {
           ) : (
             <PostsNav categories={categories} />
           )}
-          {isLoadingPosts === true ? (
+          {isLoading === true ? (
             <div className="content">Loading...</div>
+            
           ) : (
             <Switch>
               <Route
                 exact
                 path="/"
-                render={props => (
-                  <PostsList
-                    {...props}
-                    posts={posts}
-                  />
-                )}
+                render={props => <PostsList {...props} posts={posts} />}
               />
               <Route
                 path="/posts/new"
@@ -56,6 +50,7 @@ class App extends Component {
                   />
                 )}
               />
+              <Route path="/:category/:id" component={Post} />
               <Route
                 path="/:category"
                 render={props => (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import VotingControls from './VotingControls';
 import EditDeleteControls from './EditDeleteControls';
@@ -17,16 +18,18 @@ const ListItem = props => {
         />
       </div>
       <div className="list__item">
-        <Typography variant="subheading" gutterBottom>
-          {item.title}
-        </Typography>
-        <p>
-          <ItemInfo
-            author={item.author}
-            commentCount={item.commentCount}
-            timestamp={item.timestamp}
-          />
-        </p>
+        <Link to={`${item.category}/${item.id}`}>
+          <Typography variant="subheading" gutterBottom>
+            {item.title}
+          </Typography>
+          <p>
+            <ItemInfo
+              author={item.author}
+              commentCount={item.commentCount}
+              timestamp={item.timestamp}
+            />
+          </p>
+        </Link>
       </div>
       <div className="list__controls-right">
         <EditDeleteControls

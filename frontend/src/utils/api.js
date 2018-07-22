@@ -25,6 +25,15 @@ export function getPosts() {
     .catch(error => console.error(error));
 }
 
+export function getPost(id) {
+  return client
+    .get(`/posts/${id}`)
+    .then(resp => {
+      return resp.data;
+    })
+    .catch(error => console.error(error));
+}
+
 export function getInitialData() {
   return Promise.all([getCategories(), getPosts()]).then(
     ([categories, posts]) => ({
