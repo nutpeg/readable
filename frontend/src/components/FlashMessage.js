@@ -47,8 +47,6 @@ const styles1 = theme => ({
 function FlashMessage(props) {
   const { classes, className, message, onClose, variant, ...other } = props;
   const Icon = variantIcon[variant];
-  console.log('hoo')
-
   return (
     <SnackbarContent
       className={classNames(classes[variant], className)}

@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import capitalize from '../utils/capitalize';
+import FlashMessageContainer from '../containers/FlashMessageContainer';
 
 const styles = theme => ({
   textField: {
@@ -27,8 +28,12 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit,
-    marginLeft: 0,
     minWidth: 120,
+  },
+  buttonBar: {
+    marginTop: '1em',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 });
 
@@ -38,11 +43,13 @@ class PostsNew extends Component {
     author: '',
     body: '',
     category: '',
+    valid: true,
   };
 
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
+      valid: true,
     });
   };
 
@@ -55,29 +62,46 @@ class PostsNew extends Component {
     });
   };
 
+  validateForm = () => {
+    if (
+      !this.state.author.trim() ||
+      !this.state.title.trim() ||
+      !this.state.body.trim() ||
+      !this.state.category.trim()
+    ) {
+      this.setState({ valid: false });
+      return false;
+    }
+    return true;
+  };
+
   handleCreatePost = e => {
     e.preventDefault();
-    this.props.onCreatePost({
-      title: this.state.title,
-      author: this.state.author,
-      body: this.state.body,
-      category: this.state.category,
-    });
-    this.resetForm();
+    if (this.validateForm()) {
+      this.props.onCreatePost({
+        title: this.state.title,
+        author: this.state.author,
+        body: this.state.body,
+        category: this.state.category,
+      });
+    }
   };
 
   render() {
-    const { classes, categories } = this.props;
+    const { classes, categories, onClose } = this.props;
+    const invalidFormMessage = 'All fields should be completed.';
     return (
-      <div className="content">
+      <div>
+        {!this.state.valid && (
+          <FlashMessageContainer
+            message={invalidFormMessage}
+            variant={'warning'}
+          />
+        )}
         <Typography variant="display1" gutterBottom>
           New Post
         </Typography>
-        <form
-          noValidate
-          autoComplete="off"
-          onSubmit={this.handleCreatePost}
-        >
+        <form noValidate autoComplete="off" onSubmit={this.handleCreatePost}>
           <TextField
             id="author"
             label="Author"
@@ -122,13 +146,20 @@ class PostsNew extends Component {
             </Select>
           </FormControl>
 
-          <div>
+          <div className={classes.buttonBar}>
+            <Button
+              variant="outlined"
+              className={classes.button}
+              onClick={onClose}
+            >
+              Cancel
+            </Button>
             <Button
               variant="outlined"
               className={classes.button}
               onClick={this.resetForm}
             >
-              Cancel
+              Reset
             </Button>
             <Button
               variant="contained"

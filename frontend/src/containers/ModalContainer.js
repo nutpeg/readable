@@ -9,7 +9,7 @@ const styles = theme => ({
     left: 0,
     right: 0,
     margin: 'auto',
-    width: theme.spacing.unit * 100,
+    width: 620,
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing.unit * 4,
   },

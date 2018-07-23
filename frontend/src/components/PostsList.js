@@ -1,6 +1,5 @@
 import React from 'react';
 import ListItemContainer from '../containers/ListItemContainer';
-import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SortControlContainer from '../containers/SortControlContainer';
@@ -40,7 +39,11 @@ class PostsList extends React.Component {
           </div>
         </div>
         <ModalContainer onClose={this.handleClose} open={this.state.open}>
-          <PostsNew categories={categories} onCreatePost={onCreatePost} />
+          <PostsNew
+            categories={categories}
+            onClose={this.handleClose}
+            onCreatePost={onCreatePost}
+          />
         </ModalContainer>
 
         <SortControlContainer />
