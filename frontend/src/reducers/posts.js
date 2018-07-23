@@ -1,9 +1,11 @@
 import {
   FETCH_POSTS_STARTED,
   FETCH_POSTS_SUCCEEDED,
+  FETCH_POSTS_FAILED,
   FETCH_POST_STARTED,
   FETCH_POST_SUCCEEDED,
-  FETCH_POSTS_FAILED,
+  FETCH_POST_FAILED,
+  CANCEL_ERROR,
   UPVOTE,
   DOWNVOTE,
   SORT_POSTS,
@@ -30,6 +32,7 @@ export default function posts(state = initialState, action) {
       return {
         ...state,
         isLoading: true,
+        error: null,
       };
     case FETCH_POSTS_SUCCEEDED:
       return {
@@ -37,16 +40,22 @@ export default function posts(state = initialState, action) {
         isLoading: false,
         posts: action.posts,
       };
-    case FETCH_POST_STARTED:
+    case SORT_POSTS:
       return {
         ...state,
-        isLoading: true,
+        sortOrder: action.sortOrder,
       };
     case FETCH_POSTS_FAILED:
       return {
         ...state,
         isLoading: false,
-        error: action.error
+        error: action.error,
+      };
+    case FETCH_POST_STARTED:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
       };
     case FETCH_POST_SUCCEEDED:
       return {
@@ -56,10 +65,16 @@ export default function posts(state = initialState, action) {
           post => (post.id === action.post.id ? action.post : post),
         ),
       };
-    case SORT_POSTS:
+    case FETCH_POST_FAILED:
       return {
         ...state,
-        sortOrder: action.sortOrder,
+        isLoading: false,
+        error: action.error,
+      };
+    case CANCEL_ERROR:
+      return {
+        ...state,
+        error: null,
       };
     case UPVOTE:
       return {

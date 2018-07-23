@@ -22,7 +22,10 @@ export function getPosts() {
     .then(resp => {
       return resp.data;
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
 }
 
 export function getPost(id) {
@@ -31,7 +34,10 @@ export function getPost(id) {
     .then(resp => {
       return resp.data;
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
 }
 
 export function getInitialData() {

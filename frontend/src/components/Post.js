@@ -9,6 +9,7 @@ import {
   // editPost,
 } from '../actions/posts';
 import PostDetails from './PostDetails';
+import FlashMessageContainer from '../containers/FlashMessageContainer';
 
 class Post extends Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class Post extends Component {
       onDeleteItem,
       onEditItem,
       isLoadingPost,
+      error,
     } = this.props;
     const {
       title,
@@ -32,6 +34,7 @@ class Post extends Component {
       voteScore,
     } = this.props.post;
 
+    console.log('error ', error)
     return (
       <div className="content">
         {!isLoadingPost &&
@@ -57,11 +60,8 @@ class Post extends Component {
             </div>
           )}
         {isLoadingPost && !id && <CircularProgress />}
-        {!isLoadingPost &&
-          !id && (
-            <Typography variant="headline">
-              Sorry, the post you are looking for does not exist.
-            </Typography>
+        {error && (
+            <FlashMessageContainer message={error} variant={'error'} />
           )}
       </div>
     );
@@ -89,6 +89,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoadingPost: state.posts.isLoading,
+    error: state.posts.error,
     post:
       state.posts.posts.filter(
         post => post.id === ownProps.match.params.id,

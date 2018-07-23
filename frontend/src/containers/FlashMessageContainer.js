@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { cancelError } from '../actions/posts';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withStyles } from '@material-ui/core/styles';
 import FlashMessage from '../components/FlashMessage';
@@ -7,6 +9,9 @@ const styles2 = theme => ({
   margin: {
     margin: theme.spacing.unit,
   },
+  wideBar: {
+    maxWidth: '700px'
+  }
 });
 
 class FlashMessageContainer extends React.Component {
@@ -14,9 +19,9 @@ class FlashMessageContainer extends React.Component {
     open: true,
   };
 
-  handleClick = () => {
-    this.setState({ open: true });
-  };
+  componentWillUnmount() {
+    this.props.cancelError();
+  }
 
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -27,7 +32,7 @@ class FlashMessageContainer extends React.Component {
   };
 
   render() {
-    const { classes, message } = this.props;
+    const { classes, message, variant } = this.props;
 
     return (
       <div>
@@ -36,12 +41,13 @@ class FlashMessageContainer extends React.Component {
           open={this.state.open}
           autoHideDuration={6000}
           onClose={this.handleClose}
+          className={classes.wideBar}
         >
           <FlashMessage
             onClose={this.handleClose}
-            variant="error"
+            variant={variant}
             className={classes.margin}
-            message={`FlashMessage: ${message}`}
+            message={message}
           />
         </Snackbar>
       </div>
@@ -49,4 +55,13 @@ class FlashMessageContainer extends React.Component {
   }
 }
 
-export default withStyles(styles2)(FlashMessageContainer);
+const mapDispatchToProps = dispatch => ({
+  cancelError() {
+    dispatch(cancelError);
+  },
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(withStyles(styles2)(FlashMessageContainer));

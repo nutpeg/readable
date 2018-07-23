@@ -30,7 +30,7 @@ class PostsList extends React.Component {
 
         <SortControlContainer />
 
-        {error && <FlashMessageContainer message={error} />}
+        {error && <FlashMessageContainer message={error} variant={'error'} />}
         <ul>
           {posts.map(post => (
             <li className="post-item" key={post.id}>
