@@ -3,6 +3,7 @@ import {
   FETCH_POSTS_SUCCEEDED,
   FETCH_POST_STARTED,
   FETCH_POST_SUCCEEDED,
+  FETCH_POSTS_FAILED,
   UPVOTE,
   DOWNVOTE,
   SORT_POSTS,
@@ -14,6 +15,7 @@ const initialState = {
   posts: [],
   isLoading: false,
   sortOrder: 'timestamp',
+  error: null,
 };
 
 const removeDeleted = items => items.filter(item => !item.deleted);
@@ -40,15 +42,18 @@ export default function posts(state = initialState, action) {
         ...state,
         isLoading: true,
       };
+    case FETCH_POSTS_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
     case FETCH_POST_SUCCEEDED:
       return {
         ...state,
         isLoading: false,
         posts: state.posts.map(
-          post =>
-            post.id === action.post.id
-              ? action.post
-              : post,
+          post => (post.id === action.post.id ? action.post : post),
         ),
       };
     case SORT_POSTS:
@@ -81,9 +86,7 @@ export default function posts(state = initialState, action) {
         ...state,
         posts: state.posts.map(
           post =>
-            post.id === action.postId
-              ? { ...post, deleted: true}
-              : post,
+            post.id === action.postId ? { ...post, deleted: true } : post,
         ),
       };
     case CREATE_POST_SUCCEEDED:

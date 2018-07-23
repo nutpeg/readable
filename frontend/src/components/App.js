@@ -23,12 +23,15 @@ class App extends Component {
       isLoadingCategories,
       isLoading,
       onCreatePost,
+      error,
     } = this.props;
     return (
       <Router>
         <div className="main">
           {isLoadingCategories === true ? (
-            <nav><CircularProgress /></nav>
+            <nav>
+              <CircularProgress />
+            </nav>
           ) : (
             <PostsNav categories={categories} />
           )}
@@ -41,7 +44,9 @@ class App extends Component {
               <Route
                 exact
                 path="/"
-                render={props => <PostsList {...props} posts={posts} />}
+                render={props => (
+                  <PostsList {...props} posts={posts} error={error} />
+                )}
               />
               <Route
                 path="/posts/new"
@@ -61,6 +66,7 @@ class App extends Component {
                     posts={posts.filter(
                       post => post.category === props.match.params.category,
                     )}
+                    error={error}
                   />
                 )}
               />
@@ -73,7 +79,7 @@ class App extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllPosts(sortOrder) {
+  fetchAllPosts() {
     dispatch(fetchPosts());
   },
   fetchAllCategories() {
@@ -89,6 +95,7 @@ const mapStateToProps = state => ({
   isLoadingCategories: state.categories.isLoadingCategories,
   posts: getSortedPosts(state.posts.posts, state.posts.sortOrder),
   isLoadingPosts: state.posts.isLoadingPosts,
+  error: state.posts.error,
 });
 
 export default connect(

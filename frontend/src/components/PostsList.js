@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SortControlContainer from '../containers/SortControlContainer';
+import FlashMessageContainer from '../containers/FlashMessageContainer';
 
 class PostsList extends React.Component {
 
   render() {
-    const { posts } = this.props;
+    const { posts, error } = this.props;
     return (
       <div className="content">
         <div className="posts-list__header">
@@ -21,7 +22,7 @@ class PostsList extends React.Component {
               color="primary"
               component={Link}
               to="/posts/new"
-            >
+              >
               New Post
             </Button>
           </div>
@@ -29,6 +30,7 @@ class PostsList extends React.Component {
 
         <SortControlContainer />
 
+        {error && <FlashMessageContainer message={error} />}
         <ul>
           {posts.map(post => (
             <li className="post-item" key={post.id}>

@@ -4,6 +4,7 @@ export const FETCH_POSTS_SUCCEEDED = 'FETCH_POSTS_SUCCEEDED';
 export const FETCH_POSTS_STARTED = 'FETCH_POSTS_STARTED';
 export const FETCH_POST_SUCCEEDED = 'FETCH_POST_SUCCEEDED';
 export const FETCH_POST_STARTED = 'FETCH_POST_STARTED';
+export const FETCH_POSTS_FAILED = 'FETCH_POSTS_FAILED';
 export const SORT_POSTS = 'SORT_POSTS';
 export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
@@ -23,6 +24,11 @@ export const fetchPostStarted = () => ({
   type: FETCH_POST_STARTED,
 });
 
+export const fetchPostsFailed = error => ({
+  type: FETCH_POSTS_FAILED,
+  error,
+});
+
 export const fetchPostSucceeded = post => ({
   type: FETCH_POST_SUCCEEDED,
   post,
@@ -36,13 +42,17 @@ export const sortPosts = sortOrder => ({
 export const fetchPosts = () => {
   return dispatch => {
     dispatch(fetchPostsStarted());
-    API.getPosts().then(posts => {
+    API.getPosts()
+      .then(posts => {
       dispatch(fetchPostsSucceeded(posts));
+    })
+    .catch(error => {
+      dispatch(fetchPostsFailed(error.message))
     });
   };
 };
 
-export const fetchPost = (id) => {
+export const fetchPost = id => {
   return dispatch => {
     dispatch(fetchPostStarted());
     API.getPost(id).then(post => {
