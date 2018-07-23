@@ -4,6 +4,9 @@ import ItemInfo from './ItemInfo';
 import VotingControls from './VotingControls';
 import EditDeleteControls from './EditDeleteControls';
 
+const style = {
+  fontSize: '1.2em',
+}
 
 const PostDetails = props => {
   const {
@@ -27,14 +30,12 @@ const PostDetails = props => {
         </Typography>
       </div>
       <div className="post-info">
-        <Typography variant="body2" gutterBottom>
-          <ItemInfo
-            author={author}
-            timestamp={timestamp}
-            commentCount={commentCount}
-          />
-        </Typography>
-
+        <VotingControls
+          id={id}
+          voteScore={voteScore}
+          onUpVote={onUpVote}
+          onDownVote={onDownVote}
+        />
         <div className="list__controls-right">
           <EditDeleteControls
             id={id}
@@ -43,14 +44,15 @@ const PostDetails = props => {
           />
         </div>
       </div>
-      <VotingControls
-        id={id}
-        voteScore={voteScore}
-        onUpVote={onUpVote}
-        onDownVote={onDownVote}
-      />
+      <Typography variant="body2" gutterBottom>
+        <ItemInfo
+          author={author}
+          timestamp={timestamp}
+          commentCount={commentCount}
+        />
+      </Typography>
       <div className="post-body">
-        <Typography variant="body1" gutterBottom>
+        <Typography style={style} variant="body1" gutterBottom>
           {body}
         </Typography>
       </div>

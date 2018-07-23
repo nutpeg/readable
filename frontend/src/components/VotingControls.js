@@ -1,10 +1,11 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Tooltip from '@material-ui/core/Tooltip';
+import Chip from '@material-ui/core/Chip';
 import { withStyles } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
 
 const styles = theme => ({
   icon: {
@@ -12,11 +13,19 @@ const styles = theme => ({
   },
   smallIcon: {
     fontSize: 30,
+    color: grey[500],
   },
   smallIconButton: {
     padding: 0,
     marginBottom: 1,
     minWidth: 30,
+  },
+  smallChip: {
+    backgroundColor: grey[500],
+    margin: theme.spacing.unit * 0.2,
+    color: grey[100],
+    fontSize: 10,
+    fontWeight: 'bold',
   },
 });
 
@@ -35,7 +44,10 @@ const VotingControls = props => {
           </Button>
         </Tooltip>
       </div>
-      <Typography variant="caption">{`${voteScore} VOTES`}</Typography>
+      <Chip
+        label={`${voteScore} VOTES`}
+        className={classes.smallChip}
+      />
       <div>
         <Tooltip title="-1" placement="right">
           <Button
