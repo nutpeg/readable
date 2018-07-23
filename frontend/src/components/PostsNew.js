@@ -11,11 +11,6 @@ import Select from '@material-ui/core/Select';
 import capitalize from '../utils/capitalize';
 
 const styles = theme => ({
-  container: {
-    // display: 'flex',
-    // flexWrap: 'wrap',
-    // width: '100%',
-  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
@@ -79,7 +74,6 @@ class PostsNew extends Component {
           New Post
         </Typography>
         <form
-          className={classes.container}
           noValidate
           autoComplete="off"
           onSubmit={this.handleCreatePost}

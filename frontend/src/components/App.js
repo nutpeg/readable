@@ -45,7 +45,13 @@ class App extends Component {
                 exact
                 path="/"
                 render={props => (
-                  <PostsList {...props} posts={posts} error={error} />
+                  <PostsList
+                    {...props}
+                    categories={categories}
+                    posts={posts}
+                    error={error}
+                    onCreatePost={onCreatePost}
+                  />
                 )}
               />
               <Route
@@ -63,10 +69,12 @@ class App extends Component {
                 render={props => (
                   <PostsList
                     {...props}
+                    categories={categories}
                     posts={posts.filter(
                       post => post.category === props.match.params.category,
                     )}
                     error={error}
+                    onCreatePost={onCreatePost}
                   />
                 )}
               />

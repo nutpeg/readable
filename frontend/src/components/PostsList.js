@@ -1,15 +1,28 @@
 import React from 'react';
-import ListItemContainer from "../containers/ListItemContainer";
+import ListItemContainer from '../containers/ListItemContainer';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SortControlContainer from '../containers/SortControlContainer';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
+import ModalContainer from '../containers/ModalContainer';
+import PostsNew from './PostsNew';
 
 class PostsList extends React.Component {
+  state = {
+    open: false,
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
-    const { posts, error } = this.props;
+    const { posts, error, categories, onCreatePost } = this.props;
     return (
       <div className="content">
         <div className="posts-list__header">
@@ -20,13 +33,15 @@ class PostsList extends React.Component {
             <Button
               variant="contained"
               color="primary"
-              component={Link}
-              to="/posts/new"
-              >
+              onClick={this.handleOpen}
+            >
               New Post
             </Button>
           </div>
         </div>
+        <ModalContainer onClose={this.handleClose} open={this.state.open}>
+          <PostsNew categories={categories} onCreatePost={onCreatePost} />
+        </ModalContainer>
 
         <SortControlContainer />
 
