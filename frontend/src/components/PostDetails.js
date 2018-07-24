@@ -11,18 +11,6 @@ const style = {
 };
 
 class PostDetails extends Component {
-  state = {
-    open: false,
-  };
-
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
   render() {
     const {
       id,
@@ -38,12 +26,15 @@ class PostDetails extends Component {
       onEditItem,
       onDeleteItem,
       categories,
+      onOpenModal,
+      onCloseModal,
+      isEditing,
     } = this.props;
     return (
       <div className="post">
-        <ModalContainer onClose={this.handleClose} open={this.state.open}>
+        <ModalContainer onClose={() => onCloseModal()} open={isEditing}>
           <EditPost
-            onClose={this.handleClose}
+            onClose={() => onCloseModal()}
             onEditPost={onEditItem}
             id={id}
             title={title}
@@ -69,7 +60,7 @@ class PostDetails extends Component {
             <EditDeleteControls
               id={id}
               onDeleteItem={onDeleteItem}
-              onEditItem={this.handleOpen}
+              onEditItem={onOpenModal}
             />
           </div>
         </div>

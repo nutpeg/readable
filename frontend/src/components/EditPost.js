@@ -83,7 +83,7 @@ class EditPost extends Component {
         title: this.state.title,
         author: this.state.author,
         body: this.state.body,
-        category: this.state.category,
+        category: this.state.category.toLowerCase(),
       });
       this.resetForm();
       this.props.onClose();

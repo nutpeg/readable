@@ -57,7 +57,7 @@ class FlashMessageContainer extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   cancelError() {
-    dispatch(cancelError);
+    dispatch(cancelError());
   },
 });
 

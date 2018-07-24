@@ -8,6 +8,7 @@ import {
   EDIT_POST_STARTED,
   EDIT_POST_SUCCEEDED,
   EDIT_POST_FAILED,
+  CANCEL_EDIT,
   CANCEL_ERROR,
   UPVOTE,
   DOWNVOTE,
@@ -94,6 +95,11 @@ export default function posts(state = initialState, action) {
         ...state,
         isEditing: false,
         error: action.error,
+      };
+    case CANCEL_EDIT:
+      return {
+        ...state,
+        isEditing: false,
       };
     case CANCEL_ERROR:
       return {

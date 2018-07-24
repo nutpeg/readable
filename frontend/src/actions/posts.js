@@ -10,6 +10,7 @@ export const FETCH_POST_FAILED = 'FETCH_POST_FAILED';
 export const EDIT_POST_STARTED = 'EDIT_POST_STARTED';
 export const EDIT_POST_SUCCEEDED = 'EDIT_POST_SUCCEEDED';
 export const EDIT_POST_FAILED = 'EDIT_POST_FAILED';
+export const CANCEL_EDIT = 'CANCEL_EDIT';
 export const CANCEL_ERROR = 'CANCEL_ERROR';
 export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
@@ -65,9 +66,13 @@ export const editPostSucceeded = post => ({
   post,
 });
 
-export const cancelError = {
+export const cancelEdit = () => ({
+  type: CANCEL_EDIT,
+});
+
+export const cancelError = () => ({
   type: CANCEL_ERROR,
-};
+});
 
 export const fetchPosts = () => {
   return dispatch => {

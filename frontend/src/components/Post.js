@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { fetchPost, vote, deletePost, editPost } from '../actions/posts';
+import {
+  fetchPost,
+  vote,
+  deletePost,
+  editPost,
+  editPostStarted,
+  cancelEdit,
+} from '../actions/posts';
 import PostDetails from './PostDetails';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
 import { getCapitalizedCategories } from '../reducers/categories';
@@ -17,9 +24,12 @@ class Post extends Component {
       onDownVote,
       onDeleteItem,
       onEditItem,
+      onOpenModal,
+      onCloseModal,
       isLoadingPost,
       error,
       categories,
+      isEditing,
     } = this.props;
     const {
       title,
@@ -51,6 +61,9 @@ class Post extends Component {
                 onDeleteItem={onDeleteItem}
                 onEditItem={onEditItem}
                 categories={categories}
+                isEditing={isEditing}
+                onOpenModal={onOpenModal}
+                onCloseModal={onCloseModal}
               />
               <div className="post comments-title">
                 <Typography variant="title">{`${commentCount} Comments`}</Typography>
@@ -77,6 +90,12 @@ const mapDispatchToProps = dispatch => ({
   },
   onDeleteItem(id) {
     dispatch(deletePost(id));
+  },
+  onOpenModal() {
+    dispatch(editPostStarted());
+  },
+  onCloseModal() {
+    dispatch(cancelEdit());
   },
   onEditItem(id, post) {
     dispatch(editPost(id, post));
