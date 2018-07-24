@@ -4,14 +4,19 @@ export const FETCH_POSTS_SUCCEEDED = 'FETCH_POSTS_SUCCEEDED';
 export const FETCH_POSTS_STARTED = 'FETCH_POSTS_STARTED';
 export const SORT_POSTS = 'SORT_POSTS';
 export const FETCH_POSTS_FAILED = 'FETCH_POSTS_FAILED';
-export const FETCH_POST_SUCCEEDED = 'FETCH_POST_SUCCEEDED';
 export const FETCH_POST_STARTED = 'FETCH_POST_STARTED';
+export const FETCH_POST_SUCCEEDED = 'FETCH_POST_SUCCEEDED';
 export const FETCH_POST_FAILED = 'FETCH_POST_FAILED';
+export const EDIT_POST_STARTED = 'EDIT_POST_STARTED';
+export const EDIT_POST_SUCCEEDED = 'EDIT_POST_SUCCEEDED';
+export const EDIT_POST_FAILED = 'EDIT_POST_FAILED';
 export const CANCEL_ERROR = 'CANCEL_ERROR';
 export const UPVOTE = 'UPVOTE';
 export const DOWNVOTE = 'DOWNVOTE';
-export const DELETE_POST = 'DELETE_POST';
+export const DELETE_POST_SUCCEEDED = 'DELETE_POST_SUCCEEDED';
+export const DELETE_POST_FAILED = 'DELETE_POST_FAILED';
 export const CREATE_POST_SUCCEEDED = 'CREATE_POST_SUCCEEDED';
+export const CREATE_POST_FAILED = 'CREATE_POST_FAILED';
 
 export const fetchPostsStarted = () => ({
   type: FETCH_POSTS_STARTED,
@@ -43,6 +48,20 @@ export const fetchPostFailed = error => ({
 
 export const fetchPostSucceeded = post => ({
   type: FETCH_POST_SUCCEEDED,
+  post,
+});
+
+export const editPostStarted = () => ({
+  type: EDIT_POST_STARTED,
+});
+
+export const editPostFailed = error => ({
+  type: EDIT_POST_FAILED,
+  error,
+});
+
+export const editPostSucceeded = post => ({
+  type: EDIT_POST_SUCCEEDED,
   post,
 });
 
@@ -104,22 +123,40 @@ export const downVote = postId => ({
   postId,
 });
 
-export const deletePost = id => {
-  return dispatch => {
-    API.deletePost(id).then(resp => {
-      dispatch(deletePostSucceeded(id));
-    });
-  };
-};
-
 export const deletePostSucceeded = postId => ({
-  type: DELETE_POST,
+  type: DELETE_POST_SUCCEEDED,
   postId,
 });
+
+export const deletePostFailed = postId => ({
+  type: DELETE_POST_FAILED,
+  postId,
+});
+
+export const deletePost = id => {
+  return dispatch => {
+    API.deletePost(id)
+      .then(resp => {
+        dispatch(deletePostSucceeded(id));
+      })
+      .catch(error => {
+        dispatch(
+          deletePostFailed(
+            `Error deleting post: ${error.message}. Please try again`,
+          ),
+        );
+      });
+  };
+};
 
 export const createPostSucceeded = post => ({
   type: CREATE_POST_SUCCEEDED,
   post,
+});
+
+export const createPostFailed = error => ({
+  type: CREATE_POST_FAILED,
+  error,
 });
 
 export const createPost = ({ author, title, body, category }) => {
@@ -132,8 +169,33 @@ export const createPost = ({ author, title, body, category }) => {
       category,
       id: `${timestamp}`,
       timestamp,
-    }).then(post => {
-      dispatch(createPostSucceeded(post));
-    });
+    })
+      .then(post => {
+        dispatch(createPostSucceeded(post));
+      })
+      .catch(error => {
+        dispatch(
+          createPostFailed(
+            `Error creating post: ${error.message}. Please try again`,
+          ),
+        );
+      });
+  };
+};
+
+export const editPost = (id, post) => {
+  return dispatch => {
+    dispatch(editPostStarted());
+    API.editPost(id, post)
+      .then(post => {
+        dispatch(editPostSucceeded(post));
+      })
+      .catch(error => {
+        dispatch(
+          editPostFailed(
+            `Error editing post: ${error.message}. Please try again`,
+          ),
+        );
+      });
   };
 };

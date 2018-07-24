@@ -5,17 +5,21 @@ import {
   FETCH_POST_STARTED,
   FETCH_POST_SUCCEEDED,
   FETCH_POST_FAILED,
+  EDIT_POST_STARTED,
+  EDIT_POST_SUCCEEDED,
+  EDIT_POST_FAILED,
   CANCEL_ERROR,
   UPVOTE,
   DOWNVOTE,
   SORT_POSTS,
-  DELETE_POST,
+  DELETE_POST_SUCCEEDED,
   CREATE_POST_SUCCEEDED,
 } from '../actions/posts';
 
 const initialState = {
   posts: [],
   isLoading: false,
+  isEditing: false,
   sortOrder: 'timestamp',
   error: null,
 };
@@ -40,16 +44,16 @@ export default function posts(state = initialState, action) {
         isLoading: false,
         posts: action.posts,
       };
-    case SORT_POSTS:
-      return {
-        ...state,
-        sortOrder: action.sortOrder,
-      };
     case FETCH_POSTS_FAILED:
       return {
         ...state,
         isLoading: false,
         error: action.error,
+      };
+    case SORT_POSTS:
+      return {
+        ...state,
+        sortOrder: action.sortOrder,
       };
     case FETCH_POST_STARTED:
       return {
@@ -69,6 +73,26 @@ export default function posts(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
+        error: action.error,
+      };
+    case EDIT_POST_STARTED:
+      return {
+        ...state,
+        isEditing: true,
+        error: null,
+      };
+    case EDIT_POST_SUCCEEDED:
+      return {
+        ...state,
+        isEditing: false,
+        posts: state.posts.map(
+          post => (post.id === action.post.id ? action.post : post),
+        ),
+      };
+    case EDIT_POST_FAILED:
+      return {
+        ...state,
+        isEditing: false,
         error: action.error,
       };
     case CANCEL_ERROR:
@@ -96,7 +120,7 @@ export default function posts(state = initialState, action) {
               : post,
         ),
       };
-    case DELETE_POST:
+    case DELETE_POST_SUCCEEDED:
       return {
         ...state,
         posts: state.posts.map(

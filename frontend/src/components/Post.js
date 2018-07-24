@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {
-  fetchPost,
-  vote,
-  deletePost,
-  // editPost,
-} from '../actions/posts';
+import { fetchPost, vote, deletePost, editPost } from '../actions/posts';
 import PostDetails from './PostDetails';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
+import { getCapitalizedCategories } from '../reducers/categories';
 
 class Post extends Component {
   componentDidMount() {
@@ -23,6 +19,7 @@ class Post extends Component {
       onEditItem,
       isLoadingPost,
       error,
+      categories,
     } = this.props;
     const {
       title,
@@ -32,9 +29,9 @@ class Post extends Component {
       body,
       id,
       voteScore,
+      category,
     } = this.props.post;
 
-    console.log('error ', error)
     return (
       <div className="content">
         {!isLoadingPost &&
@@ -47,11 +44,13 @@ class Post extends Component {
                 timestamp={timestamp}
                 commentCount={commentCount}
                 voteScore={voteScore}
+                body={body}
+                category={category}
                 onUpVote={onUpVote}
                 onDownVote={onDownVote}
                 onDeleteItem={onDeleteItem}
                 onEditItem={onEditItem}
-                body={body}
+                categories={categories}
               />
               <div className="post comments-title">
                 <Typography variant="title">{`${commentCount} Comments`}</Typography>
@@ -60,9 +59,7 @@ class Post extends Component {
             </div>
           )}
         {isLoadingPost && !id && <CircularProgress />}
-        {error && (
-            <FlashMessageContainer message={error} variant={'error'} />
-          )}
+        {error && <FlashMessageContainer message={error} variant={'error'} />}
       </div>
     );
   }
@@ -81,19 +78,21 @@ const mapDispatchToProps = dispatch => ({
   onDeleteItem(id) {
     dispatch(deletePost(id));
   },
-  // onEditItem(post) {
-  //   dispatch(editPost(post));
-  // },
+  onEditItem(id, post) {
+    dispatch(editPost(id, post));
+  },
 });
 
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoadingPost: state.posts.isLoading,
+    isEditing: state.posts.isEditing,
     error: state.posts.error,
     post:
       state.posts.posts.filter(
         post => post.id === ownProps.match.params.id,
       )[0] || {},
+    categories: getCapitalizedCategories(state.categories.categories),
   };
 };
 

@@ -69,3 +69,12 @@ export function createPost(post) {
     })
     .catch(error => console.log(error));
 }
+
+export function editPost(id, post) {
+  return client
+    .put(`/posts/${id}`, post)
+    .then(resp => {
+      return resp.data;
+    })
+    .catch(error => console.log(error));
+}

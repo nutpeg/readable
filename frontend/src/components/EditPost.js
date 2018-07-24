@@ -9,6 +9,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
+import capitalize from '../utils/capitalize';
+
 
 const styles = theme => ({
   textField: {
@@ -36,19 +38,18 @@ const styles = theme => ({
   },
 });
 
-class PostsNew extends Component {
+class EditPost extends Component {
   state = {
-    title: '',
-    author: '',
-    body: '',
-    category: '',
+    title: this.props.title || '',
+    author: this.props.author || '',
+    body: this.props.body || '',
+    category: this.props.category || '',
     valid: true,
   };
 
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
-      valid: true,
     });
   };
 
@@ -64,10 +65,10 @@ class PostsNew extends Component {
 
   validateForm = () => {
     if (
-      !this.state.author.trim() ||
-      !this.state.title.trim() ||
-      !this.state.body.trim() ||
-      !this.state.category.trim()
+      (this.state.author.trim() === '' ) ||
+      (this.state.title.trim() === '' ) ||
+      (this.state.body.trim() === '' ) ||
+      (this.state.category.trim() === '')
     ) {
       this.setState({ valid: false });
       return false;
@@ -75,15 +76,16 @@ class PostsNew extends Component {
     return true;
   };
 
-  handleCreatePost = e => {
+  handleEditPost = e => {
     e.preventDefault();
     if (this.validateForm()) {
-      this.props.onCreatePost({
+      this.props.onEditPost(this.props.id, {
         title: this.state.title,
         author: this.state.author,
         body: this.state.body,
         category: this.state.category,
       });
+      this.resetForm();
       this.props.onClose();
     }
   };
@@ -100,9 +102,9 @@ class PostsNew extends Component {
           />
         )}
         <Typography variant="display1" gutterBottom>
-          New Post
+          Edit Post
         </Typography>
-        <form noValidate autoComplete="off" onSubmit={this.handleCreatePost}>
+        <form noValidate autoComplete="off" onSubmit={this.handleEditPost}>
           <TextField
             id="author"
             label="Author"
@@ -138,6 +140,7 @@ class PostsNew extends Component {
               value={this.state.category}
               onChange={this.handleChange('category')}
               inputProps={{ name: 'category', id: 'category' }}
+              renderValue={value => `${capitalize(value)}`}
             >
               {categories.map(category => (
                 <MenuItem key={category.name} value={category.name}>
@@ -168,7 +171,7 @@ class PostsNew extends Component {
               className={classes.button}
               type="submit"
             >
-              Create
+              Save
             </Button>
           </div>
         </form>
@@ -177,4 +180,4 @@ class PostsNew extends Component {
   }
 }
 
-export default withStyles(styles)(PostsNew);
+export default withStyles(styles)(EditPost);
