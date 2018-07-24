@@ -9,6 +9,7 @@ import Post from './Post';
 import { fetchCategories } from '../actions/categories';
 import { fetchPosts, createPost } from '../actions/posts';
 import { getSortedPosts } from '../reducers/posts';
+import { getCapitalizedCategories } from '../reducers/categories';
 
 class App extends Component {
   componentDidMount() {
@@ -99,7 +100,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  categories: state.categories.categories,
+  categories: getCapitalizedCategories(state.categories.categories),
   isLoadingCategories: state.categories.isLoadingCategories,
   posts: getSortedPosts(state.posts.posts, state.posts.sortOrder),
   isLoadingPosts: state.posts.isLoadingPosts,
