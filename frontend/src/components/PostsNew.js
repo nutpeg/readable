@@ -84,6 +84,7 @@ class PostsNew extends Component {
         body: this.state.body,
         category: this.state.category,
       });
+      this.props.onClose();
     }
   };
 
