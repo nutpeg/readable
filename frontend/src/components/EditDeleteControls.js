@@ -9,7 +9,8 @@ const EditDeleteControls = props => {
   return (
     <React.Fragment>
       <Tooltip title="Edit" placement="top">
-        <IconButton aria-label="Edit" onClick={() => onEditItem(id)}>
+        <IconButton
+          aria-label="Edit" onClick={() => onEditItem(id)}>
           <EditIcon />
         </IconButton>
       </Tooltip>

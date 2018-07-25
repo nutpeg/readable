@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
   onDeleteItem(id) {
     dispatch(deletePost(id));
   },
-  // onEditItem(post) {
+  // onEditPost(post) {
   //   dispatch(editPost(post));
   // },
 });

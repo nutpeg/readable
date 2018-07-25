@@ -2,8 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import VotingControls from './VotingControls';
-import EditDeleteControls from './EditDeleteControls';
+import SimpleControl from './SimpleControl';
+
 import ItemInfo from './ItemInfo';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const ListItem = props => {
   const { item, onUpVote, onDownVote, onDeleteItem, onEditItem } = props;
@@ -32,11 +35,16 @@ const ListItem = props => {
         </Link>
       </div>
       <div className="list__controls-right">
-        <EditDeleteControls
+        <SimpleControl controlText="Edit" id={item.id} handleClick={onEditItem}>
+          <EditIcon />
+        </SimpleControl>
+        <SimpleControl
+          controlText="Delete"
           id={item.id}
-          onDeleteItem={onDeleteItem}
-          onEditItem={onEditItem}
-        />
+          handleClick={onDeleteItem}
+        >
+          <DeleteIcon />
+        </SimpleControl>
       </div>
     </div>
   );
