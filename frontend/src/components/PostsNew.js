@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -49,6 +50,7 @@ class PostsNew extends Component {
     this.setState({
       [name]: event.target.value,
       valid: true,
+      redirectToPost: false,
     });
   };
 
@@ -82,9 +84,10 @@ class PostsNew extends Component {
         title: this.state.title,
         author: this.state.author,
         body: this.state.body,
-        category: this.state.category,
+        category: this.state.category.toLowerCase(),
       });
       this.props.onClose();
+      // this.setState({ redirectToPost: true });
     }
   };
 
@@ -93,6 +96,7 @@ class PostsNew extends Component {
     const invalidFormMessage = 'All fields should be completed.';
     return (
       <div>
+        {/* {this.state.redirect && <Redirect to="/posts/8xf0y6ziyjabvozdd253nd" />} */}
         {!this.state.valid && (
           <FlashMessageContainer
             message={invalidFormMessage}

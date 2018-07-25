@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import VotingControls from './VotingControls';
 import SimpleControl from './SimpleControl';
-
 import ItemInfo from './ItemInfo';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';

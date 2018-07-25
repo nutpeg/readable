@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import ItemInfo from './ItemInfo';
 import VotingControls from './VotingControls';
-import EditDeleteControls from './EditDeleteControls';
 import ModalContainer from '../containers/ModalContainer';
 import EditPost from './EditPost';
+import SimpleControl from './SimpleControl';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const style = {
   fontSize: '1.2em',
@@ -57,11 +59,20 @@ class PostDetails extends Component {
             onDownVote={onDownVote}
           />
           <div className="list__controls-right">
-            <EditDeleteControls
+            <SimpleControl
+              controlText="Edit"
               id={id}
-              onDeleteItem={onDeleteItem}
-              onEditItem={onOpenModal}
-            />
+              handleClick={onOpenModal}
+            >
+              <EditIcon />
+            </SimpleControl>
+            <SimpleControl
+              controlText="Delete"
+              id={id}
+              handleClick={onDeleteItem}
+            >
+              <DeleteIcon />
+            </SimpleControl>
           </div>
         </div>
         <Typography variant="body2" gutterBottom>
