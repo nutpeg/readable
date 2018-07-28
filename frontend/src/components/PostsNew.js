@@ -87,7 +87,6 @@ class PostsNew extends Component {
         category: this.state.category.toLowerCase(),
       });
       this.props.onClose();
-      // this.setState({ redirectToPost: true });
     }
   };
 

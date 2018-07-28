@@ -52,7 +52,9 @@ class PostsList extends React.Component {
         <ul>
           {posts.map(post => (
             <li className="post-item" key={post.id}>
-              <ListItemContainer item={post} />
+              <ListItemContainer
+                item={post}
+              />
             </li>
           ))}
         </ul>

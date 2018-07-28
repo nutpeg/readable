@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import {
   vote,
   deletePost,
+  editPostStarted,
   // editPost,
  } from '../actions/posts';
 import ListItem from '../components/ListItem';
@@ -16,17 +17,17 @@ const mapDispatchToProps = dispatch => ({
   onDeleteItem(id) {
     dispatch(deletePost(id));
   },
-  // onEditPost(post) {
-  //   dispatch(editPost(post));
-  // },
+  onEditItem() {
+    dispatch(editPostStarted());
+  },
 });
 
-// const mapStateToProps = (state, ownProps) => {
-
-// }
+const mapStateToProps = (state) => ({
+  isEditing: state.posts.isEditing,
+})
 
 const ListItemContainer = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ListItem);
 
