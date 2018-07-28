@@ -36,7 +36,6 @@ class PostDetails extends Component {
       onUpVote,
       onDownVote,
       onEditItem,
-      // onDeleteItem,
       categories,
       onOpenModal,
       onCloseModal,
