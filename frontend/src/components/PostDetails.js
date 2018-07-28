@@ -7,12 +7,22 @@ import EditPost from './EditPost';
 import SimpleControl from './SimpleControl';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Redirect } from 'react-router-dom';
 
 const style = {
   fontSize: '1.2em',
 };
 
 class PostDetails extends Component {
+  state = {
+    isDeleted: false,
+  };
+
+  handleDeleteClick = (id) => {
+    this.props.onDeleteItem(id);
+    this.setState({ isDeleted: true });
+  };
+
   render() {
     const {
       id,
@@ -26,7 +36,7 @@ class PostDetails extends Component {
       onUpVote,
       onDownVote,
       onEditItem,
-      onDeleteItem,
+      // onDeleteItem,
       categories,
       onOpenModal,
       onCloseModal,
@@ -34,6 +44,7 @@ class PostDetails extends Component {
     } = this.props;
     return (
       <div className="post">
+        {this.state.isDeleted && <Redirect to="/" />}
         <ModalContainer onClose={() => onCloseModal()} open={isEditing}>
           <EditPost
             onClose={() => onCloseModal()}
@@ -59,17 +70,13 @@ class PostDetails extends Component {
             onDownVote={onDownVote}
           />
           <div className="list__controls-right">
-            <SimpleControl
-              controlText="Edit"
-              id={id}
-              handleClick={onOpenModal}
-            >
+            <SimpleControl controlText="Edit" id={id} handleClick={onOpenModal}>
               <EditIcon />
             </SimpleControl>
             <SimpleControl
               controlText="Delete"
               id={id}
-              handleClick={onDeleteItem}
+              handleClick={this.handleDeleteClick}
             >
               <DeleteIcon />
             </SimpleControl>

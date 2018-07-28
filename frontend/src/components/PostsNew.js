@@ -95,7 +95,6 @@ class PostsNew extends Component {
     const invalidFormMessage = 'All fields should be completed.';
     return (
       <div>
-        {/* {this.state.redirect && <Redirect to="/posts/8xf0y6ziyjabvozdd253nd" />} */}
         {!this.state.valid && (
           <FlashMessageContainer
             message={invalidFormMessage}

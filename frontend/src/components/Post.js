@@ -88,6 +88,9 @@ const mapDispatchToProps = dispatch => ({
   fetchPost(id) {
     dispatch(fetchPost(id));
   },
+  onEditItem(id, post) {
+    dispatch(editPost(id, post));
+  },
   onDeleteItem(id) {
     dispatch(deletePost(id));
   },
@@ -96,9 +99,6 @@ const mapDispatchToProps = dispatch => ({
   },
   onCloseModal() {
     dispatch(cancelEdit());
-  },
-  onEditItem(id, post) {
-    dispatch(editPost(id, post));
   },
 });
 
