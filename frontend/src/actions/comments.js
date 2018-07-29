@@ -38,20 +38,20 @@ export const fetchComments = (id) => {
 };
 
 // Change API to voteComment
-export const vote = (id, direction) => {
+export const commentVote = (id, direction) => {
   return dispatch => {
-    API.vote(id, direction).then(posts => {
+    API.commentVote(id, direction).then(posts => {
       direction === 'upVote' ? dispatch(upVote(id)) : dispatch(downVote(id));
     });
   };
 };
 
-export const upVote = postId => ({
+export const upVote = commentId => ({
   type: UPVOTE,
-  postId,
+  commentId,
 });
 
-export const downVote = postId => ({
+export const downVote = commentId => ({
   type: DOWNVOTE,
-  postId,
+  commentId,
 })

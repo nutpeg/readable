@@ -112,7 +112,7 @@ export const fetchPost = id => {
 
 export const vote = (id, direction) => {
   return dispatch => {
-    API.vote(id, direction).then(posts => {
+    API.vote(id, direction).then( () => {
       direction === 'upVote' ? dispatch(upVote(id)) : dispatch(downVote(id));
     });
   };

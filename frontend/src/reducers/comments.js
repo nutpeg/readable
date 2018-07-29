@@ -10,8 +10,8 @@ import {
   // EDIT_COMMENT_FAILED,
   // CANCEL_EDIT,
   // CANCEL_ERROR,
-  // UPVOTE,
-  // DOWNVOTE,
+  UPVOTE,
+  DOWNVOTE,
   // DELETE_COMMENT_SUCCEEDED,
   // CREATE_COMMENT_SUCCEEDED,
 } from '../actions/comments';
@@ -99,26 +99,26 @@ export default function comments(state = initialState, action) {
     //     ...state,
     //     error: null,
     //   };
-    // case UPVOTE:
-    //   return {
-    //     ...state,
-    //     comments: state.comments.map(
-    //       comment =>
-    //         comment.id === action.commentId
-    //           ? { ...comment, voteScore: comment.voteScore + 1 }
-    //           : comment,
-    //     ),
-    //   };
-    // case DOWNVOTE:
-    //   return {
-    //     ...state,
-    //     comments: state.comments.map(
-    //       comment =>
-    //         comment.id === action.commentId
-    //           ? { ...comment, voteScore: comment.voteScore - 1 }
-    //           : comment,
-    //     ),
-    //   };
+    case UPVOTE:
+      return {
+        ...state,
+        comments: state.comments.map(
+          comment =>
+            comment.id === action.commentId
+              ? { ...comment, voteScore: comment.voteScore + 1 }
+              : comment,
+        ),
+      };
+    case DOWNVOTE:
+      return {
+        ...state,
+        comments: state.comments.map(
+          comment =>
+            comment.id === action.commentId
+              ? { ...comment, voteScore: comment.voteScore - 1 }
+              : comment,
+        ),
+      };
     // case DELETE_COMMENT_SUCCEEDED:
     //   return {
     //     ...state,

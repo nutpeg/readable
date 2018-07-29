@@ -91,3 +91,11 @@ export function vote(id, direction) {
     })
     .catch(error => console.error(error));
 }
+
+export function commentVote(id, direction) {
+  return client
+    .post(`/comments/${id}`, {
+      option: direction,
+    })
+    .catch(error => console.error(error));
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 // import ModeCommentIcon from '@material-ui/icons/ModeComment';
 // import Badge from '@material-ui/core/Badge';
-import { withStyles } from '@material-ui/core/styles';
+// import { withStyles } from '@material-ui/core/styles';
 // import grey from '@material-ui/core/colors/grey';
 import { prettyDate } from '../utils/prettyDate';
 

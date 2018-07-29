@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  vote,
+  commentVote,
   // deleteComment,
   // editCommentStarted,
   // createComment,
@@ -9,10 +9,10 @@ import CommentsListItem from '../components/CommentsListItem';
 
 const mapDispatchToProps = dispatch => ({
   onUpVote(id) {
-    dispatch(vote(id, 'upVote'));
+    dispatch(commentVote(id, 'upVote'));
   },
   onDownVote(id) {
-    dispatch(vote(id, 'downVote'));
+    dispatch(commentVote(id, 'downVote'));
   },
   // onDeleteItem(id) {
   //   dispatch(deleteComment(id));
