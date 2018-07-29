@@ -3,7 +3,6 @@ import {
   vote,
   deletePost,
   editPostStarted,
-  // editPost,
  } from '../actions/posts';
 import ListItem from '../components/ListItem';
 

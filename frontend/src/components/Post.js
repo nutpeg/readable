@@ -10,7 +10,9 @@ import {
   editPostStarted,
   cancelEdit,
 } from '../actions/posts';
+import { fetchComments } from '../actions/comments';
 import PostDetails from './PostDetails';
+import CommentListItemContainer from '../containers/CommentListItemContainer';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
 import { getCapitalizedCategories } from '../reducers/categories';
 
@@ -27,7 +29,9 @@ class Post extends Component {
       onOpenModal,
       onCloseModal,
       isLoadingPost,
-      error,
+      isLoadingComments,
+      postError,
+      commentsError,
       categories,
       isEditing,
     } = this.props;
@@ -41,6 +45,7 @@ class Post extends Component {
       voteScore,
       category,
     } = this.props.post;
+    const { comments } = this.props;
 
     return (
       <div className="content">
@@ -68,11 +73,28 @@ class Post extends Component {
               <div className="post comments-title">
                 <Typography variant="title">{`${commentCount} Comments`}</Typography>
               </div>
-              <div className="post list comments-list">Comments go here</div>
+              <div className="comments-list">
+                {!isLoadingComments && (
+                  <ul>
+                    {console.log('comments', comments)}
+                    {comments.map(comment => (
+                      <li className="post-item" key={comment.id}>
+                        <CommentListItemContainer item={comment} />
+                        {comment.body}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
           )}
         {isLoadingPost && !id && <CircularProgress />}
-        {error && <FlashMessageContainer message={error} variant={'error'} />}
+        {postError && (
+          <FlashMessageContainer message={postError} variant={'error'} />
+        )}
+        {commentsError && (
+          <FlashMessageContainer message={commentsError} variant={'error'} />
+        )}
       </div>
     );
   }
@@ -87,6 +109,7 @@ const mapDispatchToProps = dispatch => ({
   },
   fetchPost(id) {
     dispatch(fetchPost(id));
+    dispatch(fetchComments(id));
   },
   onEditItem(id, post) {
     dispatch(editPost(id, post));
@@ -105,13 +128,16 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoadingPost: state.posts.isLoading,
+    isLoadingComments: state.comments.isLoading,
     isEditing: state.posts.isEditing,
-    error: state.posts.error,
+    postError: state.posts.error,
+    commentsError: state.comments.error,
     post:
       state.posts.posts.filter(
         post => post.id === ownProps.match.params.id,
       )[0] || {},
     categories: getCapitalizedCategories(state.categories.categories),
+    comments: state.comments.comments,
   };
 };
 

@@ -6,21 +6,7 @@ import SimpleControl from './SimpleControl';
 import ItemInfo from './ItemInfo';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ModeCommentIcon from '@material-ui/icons/ModeComment';
-import Badge from '@material-ui/core/Badge';
 import { Redirect } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey';
-
-const styles = theme => ({
-  icon: {
-    marginLeft: theme.spacing.unit * 2,
-  },
-  commentIcon: {
-    color: grey[600],
-    fontSize: 20,
-  },
-});
 
 class ListItem extends Component {
   state = {
@@ -33,14 +19,7 @@ class ListItem extends Component {
   };
 
   render() {
-    const {
-      item,
-      onUpVote,
-      onDownVote,
-      onDeleteItem,
-      isEditing,
-      classes,
-    } = this.props;
+    const { item, onUpVote, onDownVote, onDeleteItem, isEditing } = this.props;
     return (
       <div className="list">
         {isEditing &&
@@ -63,17 +42,8 @@ class ListItem extends Component {
             <p>
               <ItemInfo
                 author={item.author}
-                commentCount={item.commentCount}
                 timestamp={item.timestamp}
-              >
-                <Badge
-                  className={classes.icon}
-                  badgeContent={item.commentCount}
-                  color="primary"
-                >
-                  <ModeCommentIcon className={classes.commentIcon} />
-                </Badge>
-              </ItemInfo>
+              />
             </p>
           </Link>
         </div>
@@ -99,4 +69,4 @@ class ListItem extends Component {
   }
 }
 
-export default withStyles(styles)(ListItem);
+export default ListItem;

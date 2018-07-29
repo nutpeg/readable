@@ -16,16 +16,13 @@ export function getCategories() {
     .catch(error => console.error(error));
 }
 
-export function getPosts() {
-  return client
-    .get('/posts')
-    .then(resp => {
-      return resp.data;
-    })
-    .catch(error => {
-      console.error(error);
-      throw new Error(error);
-    });
+export function getInitialData() {
+  return Promise.all([getCategories(), getPosts()]).then(
+    ([categories, posts]) => ({
+      categories,
+      posts,
+    }),
+  );
 }
 
 export function getPost(id) {
@@ -40,34 +37,17 @@ export function getPost(id) {
     });
 }
 
-export function getInitialData() {
-  return Promise.all([getCategories(), getPosts()]).then(
-    ([categories, posts]) => ({
-      categories,
-      posts,
-    }),
-  );
-}
-
-export function vote(id, direction) {
+export function createPost(post) {
   return client
-    .post(`/posts/${id}`, {
-      option: direction,
-    })
-    .catch(error => console.error(error));
+  .post('/posts', post)
+  .then(resp => {
+    return resp.data;
+  })
+  .catch(error => console.log(error));
 }
 
 export function deletePost(id) {
   return client.delete(`/posts/${id}`).catch(error => console.log(error));
-}
-
-export function createPost(post) {
-  return client
-    .post('/posts', post)
-    .then(resp => {
-      return resp.data;
-    })
-    .catch(error => console.log(error));
 }
 
 export function editPost(id, post) {
@@ -77,4 +57,37 @@ export function editPost(id, post) {
       return resp.data;
     })
     .catch(error => console.log(error));
+}
+
+export function getComments(id) {
+  return client
+    .get(`/posts/${id}/comments`)
+    .then(resp => {
+      return resp.data;
+      // throw new Error('TEST: Comments error!');
+    })
+    .catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
+}
+
+export function getPosts() {
+  return client
+    .get('/posts')
+    .then(resp => {
+      return resp.data;
+    })
+    .catch(error => {
+      console.error(error);
+      throw new Error(error);
+    });
+}
+
+export function vote(id, direction) {
+  return client
+    .post(`/posts/${id}`, {
+      option: direction,
+    })
+    .catch(error => console.error(error));
 }
