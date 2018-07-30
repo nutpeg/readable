@@ -2,6 +2,8 @@ import {
   FETCH_COMMENTS_STARTED,
   FETCH_COMMENTS_SUCCEEDED,
   FETCH_COMMENTS_FAILED,
+  CREATE_COMMENT_SUCCEEDED,
+  CREATE_COMMENT_FAILED,
   // FETCH_COMMENT_STARTED,
   // FETCH_COMMENT_SUCCEEDED,
   // FETCH_COMMENT_FAILED,
@@ -12,7 +14,7 @@ import {
   // CANCEL_ERROR,
   UPVOTE,
   DOWNVOTE,
-  // DELETE_COMMENT_SUCCEEDED,
+  DELETE_COMMENT_SUCCEEDED,
   // CREATE_COMMENT_SUCCEEDED,
 } from '../actions/comments';
 
@@ -25,8 +27,10 @@ const initialState = {
 
 const removeDeleted = items => items.filter(item => !item.deleted);
 
-export const getSortedComments = (comments) => {
-  return removeDeleted(comments).sort((a, b) => a['timestamp'] < b['timestamp']);
+export const getSortedComments = comments => {
+  return removeDeleted(comments).sort(
+    (a, b) => a['timestamp'] < b['timestamp'],
+  );
 };
 
 export default function comments(state = initialState, action) {
@@ -49,6 +53,19 @@ export default function comments(state = initialState, action) {
         isLoading: false,
         error: action.error,
       };
+    case CREATE_COMMENT_SUCCEEDED:
+      return {
+        ...state,
+        isLoading: false,
+        comments: [...state.comments, action.comment],
+      };
+    case CREATE_COMMENT_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+    // case FETCH_COMMENT_STARTED:
     // case FETCH_COMMENT_STARTED:
     //   return {
     //     ...state,
@@ -119,19 +136,16 @@ export default function comments(state = initialState, action) {
               : comment,
         ),
       };
-    // case DELETE_COMMENT_SUCCEEDED:
-    //   return {
-    //     ...state,
-    //     comments: state.comments.map(
-    //       comment =>
-    //         comment.id === action.commentId ? { ...comment, deleted: true } : comment,
-    //     ),
-    //   };
-    // case CREATE_COMMENT_SUCCEEDED:
-    //   return {
-    //     ...state,
-    //     comments: [...state.comments, action.comment],
-    //   };
+    case DELETE_COMMENT_SUCCEEDED:
+      return {
+        ...state,
+        comments: state.comments.map(
+          comment =>
+            comment.id === action.commentId
+              ? { ...comment, deleted: true }
+              : comment,
+        ),
+      };
     default:
       return state;
   }

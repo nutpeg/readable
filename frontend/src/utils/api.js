@@ -39,11 +39,11 @@ export function getPost(id) {
 
 export function createPost(post) {
   return client
-  .post('/posts', post)
-  .then(resp => {
-    return resp.data;
-  })
-  .catch(error => console.log(error));
+    .post('/posts', post)
+    .then(resp => {
+      return resp.data;
+    })
+    .catch(error => console.log(error));
 }
 
 export function deletePost(id) {
@@ -98,4 +98,23 @@ export function commentVote(id, direction) {
       option: direction,
     })
     .catch(error => console.error(error));
+}
+
+export function createComment(comment) {
+  return client
+    .post('/comments', comment)
+    .then(resp => {
+      return resp.data;
+    })
+    .catch(error => {
+      console.log(error);
+      throw new Error(error);
+    });
+}
+
+export function deleteComment(id) {
+  return client.delete(`/comments/${id}`).catch(error => {
+    console.log(error);
+    throw new Error(error);
+  });
 }

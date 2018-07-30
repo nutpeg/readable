@@ -10,13 +10,25 @@ import {
   editPostStarted,
   cancelEdit,
 } from '../actions/posts';
-import { fetchComments } from '../actions/comments';
+import { fetchComments, createComment } from '../actions/comments';
 import PostDetails from './PostDetails';
 import CommentListItemContainer from '../containers/CommentListItemContainer';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
 import { getCapitalizedCategories } from '../reducers/categories';
+import NewComment from './NewComment';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 class Post extends Component {
+  state = {
+    show: false,
+  };
+
+  toggleOpen = () => {
+    const currentState = this.state.show;
+    this.setState({ show: !currentState });
+  };
+
   componentDidMount() {
     this.props.fetchPost(this.props.match.params.id);
   }
@@ -34,6 +46,7 @@ class Post extends Component {
       commentsError,
       categories,
       isEditing,
+      onCreateComment,
     } = this.props;
     const {
       title,
@@ -70,17 +83,34 @@ class Post extends Component {
                 onOpenModal={onOpenModal}
                 onCloseModal={onCloseModal}
               />
-              <div className="post comments-title">
-                <Typography variant="title">{`${commentCount} Comments`}</Typography>
+
+              <div className="posts-list__header">
+                <Typography variant="display1" gutterBottom>
+                  Comments
+                </Typography>
+                <div className="posts-list__header-button">
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.toggleOpen}
+                  >
+                    Add Comment
+                  </Button>
+                </div>
+              </div>
+            <div className={"post comments-form " + (this.state.show ? "show" : "")}>
+              <NewComment onCreateComment={onCreateComment} parentId={id} className={(this.state.show ? "show" : "")} onClose={this.toggleOpen} />
               </div>
               <div className="comments-list">
                 {!isLoadingComments && (
                   <ul>
-                    {console.log('comments', comments)}
                     {comments.map(comment => (
                       <li className="post-item" key={comment.id}>
                         <CommentListItemContainer item={comment} />
-                        {comment.body}
+                        <Typography variant="body1" gutterBottom>
+                          {comment.body}
+                        </Typography>
+                      <Divider inset />
                       </li>
                     ))}
                   </ul>
@@ -122,6 +152,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onCloseModal() {
     dispatch(cancelEdit());
+  },
+  onCreateComment(comment) {
+    dispatch(createComment(comment));
   },
 });
 
