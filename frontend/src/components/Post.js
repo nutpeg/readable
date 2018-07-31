@@ -12,7 +12,7 @@ import {
 } from '../actions/posts';
 import { fetchComments, createComment } from '../actions/comments';
 import { getSortedComments } from '../reducers/comments';
-
+import { getPost } from '../reducers/posts';
 import PostDetails from './PostDetails';
 import CommentListItemContainer from '../containers/CommentListItemContainer';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
@@ -176,12 +176,8 @@ const mapStateToProps = (state, ownProps) => {
     isEditing: state.posts.isEditing,
     postError: state.posts.error,
     commentsError: state.comments.error,
-    post:
-      state.posts.posts.filter(
-        post => post.id === ownProps.match.params.id,
-      )[0] || {},
+    post: getPost(state.posts.posts, ownProps.match.params.id),
     categories: getCapitalizedCategories(state.categories.categories),
-    // comments: state.comments.comments,
     comments: getSortedComments(state.comments.comments),
   };
 };

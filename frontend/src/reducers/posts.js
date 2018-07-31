@@ -31,6 +31,12 @@ export const getSortedPosts = (posts, sortOrder) => {
   return removeDeleted(posts).sort((a, b) => a[sortOrder] < b[sortOrder]);
 };
 
+export const getPost = (posts, id) => {
+  return posts.filter(
+    post => post.id === id,
+  )[0] || {};
+}
+
 export default function posts(state = initialState, action) {
   switch (action.type) {
     case FETCH_POSTS_STARTED:
