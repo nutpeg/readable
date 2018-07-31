@@ -14,12 +14,11 @@ import { fetchComments, createComment } from '../actions/comments';
 import { getSortedComments } from '../reducers/comments';
 import { getPost } from '../reducers/posts';
 import PostDetails from './PostDetails';
-import CommentListItemContainer from '../containers/CommentListItemContainer';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
 import { getCapitalizedCategories } from '../reducers/categories';
 import NewComment from './NewComment';
+import CommentsList from './CommentsList';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 
 class Post extends Component {
   state = {
@@ -112,24 +111,14 @@ class Post extends Component {
                   onClose={this.toggleOpen}
                 />
               </div>
-              <div className="comments-list">
-                {!isLoadingComments && (
-                  <ul>
-                    {comments.map(comment => (
-                      <li className="post-item" key={comment.id}>
-                        <CommentListItemContainer item={comment} />
-                        <Typography variant="body1" gutterBottom>
-                          {comment.body}
-                        </Typography>
-                        <Divider inset />
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+              <CommentsList
+                isLoadingComments={isLoadingComments}
+                comments={comments}
+              />
             </div>
           )}
         {isLoadingPost && !id && <CircularProgress />}
+        {isLoadingComments && !id && <CircularProgress />}
         {postError && (
           <FlashMessageContainer message={postError} variant={'error'} />
         )}
