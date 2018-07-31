@@ -11,6 +11,8 @@ import {
   cancelEdit,
 } from '../actions/posts';
 import { fetchComments, createComment } from '../actions/comments';
+import { getSortedComments } from '../reducers/comments';
+
 import PostDetails from './PostDetails';
 import CommentListItemContainer from '../containers/CommentListItemContainer';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
@@ -98,8 +100,17 @@ class Post extends Component {
                   </Button>
                 </div>
               </div>
-            <div className={"post comments-form " + (this.state.show ? "show" : "")}>
-              <NewComment onCreateComment={onCreateComment} parentId={id} className={(this.state.show ? "show" : "")} onClose={this.toggleOpen} />
+              <div
+                className={
+                  'post comments-form ' + (this.state.show ? 'show' : '')
+                }
+              >
+                <NewComment
+                  onCreateComment={onCreateComment}
+                  parentId={id}
+                  className={this.state.show ? 'show' : ''}
+                  onClose={this.toggleOpen}
+                />
               </div>
               <div className="comments-list">
                 {!isLoadingComments && (
@@ -110,7 +121,7 @@ class Post extends Component {
                         <Typography variant="body1" gutterBottom>
                           {comment.body}
                         </Typography>
-                      <Divider inset />
+                        <Divider inset />
                       </li>
                     ))}
                   </ul>
@@ -170,7 +181,8 @@ const mapStateToProps = (state, ownProps) => {
         post => post.id === ownProps.match.params.id,
       )[0] || {},
     categories: getCapitalizedCategories(state.categories.categories),
-    comments: state.comments.comments,
+    // comments: state.comments.comments,
+    comments: getSortedComments(state.comments.comments),
   };
 };
 

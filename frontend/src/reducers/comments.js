@@ -25,7 +25,10 @@ const initialState = {
   error: null,
 };
 
-const removeDeleted = items => items.filter(item => !item.deleted);
+const removeDeleted = items => items.filter(item => {
+  console.log("here");
+  return !item.deleted;
+})
 
 export const getSortedComments = comments => {
   return removeDeleted(comments).sort(

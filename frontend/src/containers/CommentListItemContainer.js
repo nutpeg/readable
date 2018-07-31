@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
   commentVote,
-  // deleteComment,
+  deleteComment,
   // editCommentStarted,
   // createComment,
  } from '../actions/comments';
@@ -14,9 +14,9 @@ const mapDispatchToProps = dispatch => ({
   onDownVote(id) {
     dispatch(commentVote(id, 'downVote'));
   },
-  // onDeleteItem(id) {
-  //   dispatch(deleteComment(id));
-  // },
+  onDeleteItem(id) {
+    dispatch(deleteComment(id));
+  },
   // onEditItem() {
   //   dispatch(editCommentStarted());
   // },
