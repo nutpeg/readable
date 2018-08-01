@@ -89,6 +89,7 @@ class Post extends Component {
                 <Typography variant="display1" gutterBottom>
                   Comments
                 </Typography>
+
                 <div className="list__header-button">
                   <Button
                     variant="contained"
@@ -98,6 +99,12 @@ class Post extends Component {
                     Add Comment
                   </Button>
                 </div>
+              </div>
+              <div className="comment-count">
+                <Typography variant="body1" gutterBottom>
+                  {commentCount}
+                  {commentCount > 1 ? ' comments' : ' comment'}
+                </Typography>
               </div>
               <div
                 className={
