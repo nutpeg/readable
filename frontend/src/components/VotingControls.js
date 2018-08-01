@@ -13,7 +13,7 @@ const styles = theme => ({
   },
   smallIcon: {
     fontSize: 30,
-    color: grey[500],
+    color: grey[300],
   },
   smallIconButton: {
     padding: 0,
@@ -21,9 +21,9 @@ const styles = theme => ({
     minWidth: 30,
   },
   smallChip: {
-    backgroundColor: grey[500],
+    backgroundColor: grey[100],
     margin: theme.spacing.unit * 0.2,
-    color: grey[100],
+    color: grey[500],
     fontSize: 10,
     fontWeight: 'bold',
   },

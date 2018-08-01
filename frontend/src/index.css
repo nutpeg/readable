@@ -72,12 +72,12 @@ a {
   margin-top: 0em;
 }
 
-.posts-list__header {
+.list__header {
   display: flex;
   align-items: flex-start;
 }
 
-.posts-list__header-button {
+.list__header-button {
   margin-left: auto;
 }
 .sorter {
@@ -97,6 +97,10 @@ a {
 
 .post-body {
   margin-top: 2em;
+}
+
+.comments {
+  margin-top: 4em;
 }
 
 .comments-title {
@@ -157,7 +161,7 @@ a {
   margin-left: auto;
 }
 
-.post-item {
+.post-item, .comment-item {
   padding: 0;
   border-bottom: 1px solid #f8f8f8;
 }

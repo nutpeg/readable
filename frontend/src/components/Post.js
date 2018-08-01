@@ -85,11 +85,11 @@ class Post extends Component {
                 onCloseModal={onCloseModal}
               />
 
-              <div className="posts-list__header">
+              <div className="comments list__header">
                 <Typography variant="display1" gutterBottom>
                   Comments
                 </Typography>
-                <div className="posts-list__header-button">
+                <div className="list__header-button">
                   <Button
                     variant="contained"
                     color="secondary"

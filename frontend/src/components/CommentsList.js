@@ -9,7 +9,7 @@ class CommentsList extends Component {
         {!isLoadingComments && (
           <ul>
             {comments.map(comment => (
-              <li className="post-item" key={comment.id}>
+              <li className="comment-item" key={comment.id}>
                 <CommentsListItemContainer item={comment} />
               </li>
             ))}

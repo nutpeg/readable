@@ -24,11 +24,11 @@ class PostsList extends React.Component {
     const { posts, error, categories, onCreatePost } = this.props;
     return (
       <div className="content">
-        <div className="posts-list__header">
+        <div className="list__header">
           <Typography variant="display1" gutterBottom>
             Posts
           </Typography>
-          <div className="posts-list__header-button">
+          <div className="list__header-button">
             <Button
               variant="contained"
               color="primary"
