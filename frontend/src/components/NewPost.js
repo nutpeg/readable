@@ -36,7 +36,7 @@ const styles = theme => ({
   },
 });
 
-class PostsNew extends Component {
+class NewPost extends Component {
   state = {
     title: '',
     author: '',
@@ -178,4 +178,4 @@ class PostsNew extends Component {
   }
 }
 
-export default withStyles(styles)(PostsNew);
+export default withStyles(styles)(NewPost);

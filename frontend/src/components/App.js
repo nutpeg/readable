@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PostsList from './PostsList';
 import PostsNav from './PostsNav';
-import PostsNew from './PostsNew';
+import NewPost from './NewPost';
 import Post from './Post';
 import { fetchCategories } from '../actions/categories';
 import { fetchPosts, createPost } from '../actions/posts';
@@ -58,7 +58,7 @@ class App extends Component {
               <Route
                 path="/posts/new"
                 render={props => (
-                  <PostsNew
+                  <NewPost
                     categories={categories}
                     onCreatePost={onCreatePost}
                   />

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import SortControlContainer from '../containers/SortControlContainer';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
 import ModalContainer from '../containers/ModalContainer';
-import PostsNew from './PostsNew';
+import NewPost from './NewPost';
 
 class PostsList extends React.Component {
   state = {
@@ -39,7 +39,7 @@ class PostsList extends React.Component {
           </div>
         </div>
         <ModalContainer onClose={this.handleClose} open={this.state.open}>
-          <PostsNew
+          <NewPost
             categories={categories}
             onClose={this.handleClose}
             onCreatePost={onCreatePost}

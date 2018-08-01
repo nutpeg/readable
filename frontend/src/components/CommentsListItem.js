@@ -35,7 +35,6 @@ class ListItem extends Component {
           onClose={() => onCloseCommentModal()}
           open={item.id === this.state.selectedId && isEditing}
         >
-          {console.log('item.id ', item.id)}
           <EditComment
             onClose={() => onCloseCommentModal()}
             onEditComment={onEditItem}
