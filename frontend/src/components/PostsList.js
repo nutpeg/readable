@@ -21,12 +21,12 @@ class PostsList extends React.Component {
   };
 
   render() {
-    const { posts, error, categories, onCreatePost } = this.props;
+    const { posts, error, category, categories, onCreatePost } = this.props;
     return (
       <div className="content">
         <div className="list__header">
           <Typography variant="display1" gutterBottom>
-            Posts
+            { category ? `Posts :: ${category} ` : 'All Posts' }
           </Typography>
           <div className="list__header-button">
             <Button

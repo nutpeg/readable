@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PostsList from './PostsList';
 import PostsNav from './PostsNav';
-import NewPost from './NewPost';
+// import NewPost from './NewPost';
 import Post from './Post';
 import { fetchCategories } from '../actions/categories';
 import { fetchPosts, createPost } from '../actions/posts';
@@ -29,14 +29,14 @@ class App extends Component {
     return (
       <Router>
         <div className="main">
-          {isLoadingCategories === true ? (
+          {isLoadingCategories ? (
             <nav>
               <CircularProgress />
             </nav>
           ) : (
             <PostsNav categories={categories} />
           )}
-          {isLoading === true ? (
+          {isLoading ? (
             <div className="content">
               <CircularProgress />
             </div>
@@ -55,7 +55,7 @@ class App extends Component {
                   />
                 )}
               />
-              <Route
+              {/* <Route
                 path="/posts/new"
                 render={props => (
                   <NewPost
@@ -63,13 +63,14 @@ class App extends Component {
                     onCreatePost={onCreatePost}
                   />
                 )}
-              />
+              /> */}
               <Route path="/:category/:id" component={Post} />
               <Route
                 path="/:category"
                 render={props => (
                   <PostsList
                     {...props}
+                    category={props.match.params.category}
                     categories={categories}
                     posts={posts.filter(
                       post => post.category === props.match.params.category,
