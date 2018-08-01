@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import FlashMessageContainer from '../containers/FlashMessageContainer';
 
 const styles = theme => ({
@@ -36,12 +32,10 @@ const styles = theme => ({
   },
 });
 
-class PostsNew extends Component {
+class EditComment extends Component {
   state = {
-    title: '',
-    author: '',
-    body: '',
-    category: '',
+    author: this.props.author || '',
+    body: this.props.body || '',
     valid: true,
   };
 
@@ -49,48 +43,40 @@ class PostsNew extends Component {
     this.setState({
       [name]: event.target.value,
       valid: true,
-      redirectToPost: false,
     });
   };
 
   resetForm = () => {
     this.setState({
-      title: '',
       author: '',
       body: '',
-      category: '',
       valid: true,
     });
   };
 
   validateForm = () => {
-    if (
-      !this.state.author.trim() ||
-      !this.state.title.trim() ||
-      !this.state.body.trim() ||
-      !this.state.category.trim()
-    ) {
+    if (!this.state.author.trim() || !this.state.body.trim()) {
       this.setState({ valid: false });
       return false;
     }
     return true;
   };
 
-  handleCreatePost = e => {
-    e.preventDefault();
+  handleEditComment = event => {
+    event.preventDefault();
+    const timestamp = Date.now();
     if (this.validateForm()) {
-      this.props.onCreatePost({
-        title: this.state.title,
+      this.props.onEditComment(this.props.id, {
         author: this.state.author,
         body: this.state.body,
-        category: this.state.category.toLowerCase(),
+        timestamp: timestamp,
       });
       this.props.onClose();
     }
   };
 
   render() {
-    const { classes, categories, onClose } = this.props;
+    const { classes, onClose } = this.props;
     const invalidFormMessage = 'All fields should be completed.';
     return (
       <div>
@@ -100,13 +86,13 @@ class PostsNew extends Component {
             variant={'warning'}
           />
         )}
-        <Typography variant="display1" gutterBottom>
-          New Post
+        <Typography variant="title" gutterBottom>
+          Edit Comment
         </Typography>
-        <form noValidate autoComplete="off" onSubmit={this.handleCreatePost}>
+        <form noValidate autoComplete="off" onSubmit={this.handleEditComment}>
           <TextField
             id="author"
-            label="Author"
+            label="Your name"
             className={classes.textField}
             margin="normal"
             value={this.state.author}
@@ -114,39 +100,15 @@ class PostsNew extends Component {
           />
 
           <TextField
-            id="title"
-            label="Title"
-            className={classNames(classes.textField, classes.textFieldWide)}
-            margin="normal"
-            value={this.state.title}
-            onChange={this.handleChange('title')}
-          />
-
-          <TextField
             id="body"
-            label="Post Content"
+            label="What would you like to say?"
             multiline
-            rows="10"
+            rows="5"
             className={classNames(classes.textField, classes.textFieldWide)}
             margin="normal"
             value={this.state.body}
             onChange={this.handleChange('body')}
           />
-
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="category">Category</InputLabel>
-            <Select
-              value={this.state.category}
-              onChange={this.handleChange('category')}
-              inputProps={{ name: 'category', id: 'category' }}
-            >
-              {categories.map(category => (
-                <MenuItem key={category.name} value={category.name}>
-                  {category.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
 
           <div className={classes.buttonBar}>
             <Button
@@ -169,7 +131,7 @@ class PostsNew extends Component {
               className={classes.button}
               type="submit"
             >
-              Create
+              Save
             </Button>
           </div>
         </form>
@@ -178,4 +140,4 @@ class PostsNew extends Component {
   }
 }
 
-export default withStyles(styles)(PostsNew);
+export default withStyles(styles)(EditComment);

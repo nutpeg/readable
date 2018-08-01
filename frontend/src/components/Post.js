@@ -111,6 +111,7 @@ class Post extends Component {
                   onClose={this.toggleOpen}
                 />
               </div>
+
               <CommentsList
                 isLoadingComments={isLoadingComments}
                 comments={comments}

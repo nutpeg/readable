@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import {
   commentVote,
   deleteComment,
-  // editCommentStarted,
-  // createComment,
+  editCommentStarted,
+  cancelEditComment,
+  editComment,
  } from '../actions/comments';
 import CommentsListItem from '../components/CommentsListItem';
 
@@ -17,9 +18,15 @@ const mapDispatchToProps = dispatch => ({
   onDeleteItem(id) {
     dispatch(deleteComment(id));
   },
-  // onEditItem() {
-  //   dispatch(editCommentStarted());
-  // },
+  onEditItem(id, comment) {
+    dispatch(editComment(id, comment));
+  },
+  onOpenCommentModal() {
+    dispatch(editCommentStarted());
+  },
+  onCloseCommentModal() {
+    dispatch(cancelEditComment());
+  },
 });
 
 const mapStateToProps = (state) => ({

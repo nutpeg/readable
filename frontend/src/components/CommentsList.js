@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
-import CommentListItemContainer from '../containers/CommentListItemContainer';
+// import Typography from '@material-ui/core/Typography';
+import CommentsListItemContainer from '../containers/CommentsListItemContainer';
 import Divider from '@material-ui/core/Divider';
 
 class CommentsList extends Component {
@@ -12,10 +12,10 @@ class CommentsList extends Component {
           <ul>
             {comments.map(comment => (
               <li className="post-item" key={comment.id}>
-                <CommentListItemContainer item={comment} />
-                <Typography variant="body1" gutterBottom>
+                <CommentsListItemContainer item={comment} />
+                {/* <Typography variant="body1" gutterBottom>
                   {comment.body}
-                </Typography>
+                </Typography> */}
                 <Divider />
               </li>
             ))}

@@ -118,3 +118,12 @@ export function deleteComment(id) {
     throw new Error(error);
   });
 }
+
+export function editComment(id, comment) {
+  return client
+    .put(`/comments/${id}`, comment)
+    .then(resp => {
+      return resp.data;
+    })
+    .catch(error => console.log(error));
+}

@@ -8,6 +8,10 @@ export const DOWNVOTE = 'DOWNVOTE';
 export const CREATE_COMMENT_STARTED = 'CREATE_COMMENT_STARTED';
 export const CREATE_COMMENT_SUCCEEDED = 'CREATE_COMMENT_SUCCEEDED';
 export const CREATE_COMMENT_FAILED = 'CREATE_COMMENT_FAILED';
+export const EDIT_COMMENT_STARTED = 'EDIT_COMMENT_STARTED';
+export const EDIT_COMMENT_SUCCEEDED = 'EDIT_COMMENT_SUCCEEDED';
+export const EDIT_COMMENT_FAILED = 'EDIT_COMMENT_FAILED';
+export const CANCEL_EDIT_COMMENT = 'CANCEL_EDIT_COMMENT';
 export const DELETE_COMMENT_SUCCEEDED = 'DELETE_COMMENT_SUCCEEDED';
 export const DELETE_COMMENT_FAILED = 'DELETE_COMMENT_FAILED';
 
@@ -112,13 +116,47 @@ export const deleteCommentFailed = commentId => ({
 export const deleteComment = id => {
   return dispatch => {
     API.deleteComment(id)
-      .then(resp => {
+      .then(() => {
         dispatch(deleteCommentSucceeded(id));
       })
       .catch(error => {
         dispatch(
           deleteCommentFailed(
             `Error deleting comment: ${error.message}. Please try again`,
+          ),
+        );
+      });
+  };
+};
+
+export const editCommentStarted = () => ({
+  type: EDIT_COMMENT_STARTED,
+});
+
+export const editCommentFailed = error => ({
+  type: EDIT_COMMENT_FAILED,
+  error,
+});
+
+export const editCommentSucceeded = comment => ({
+  type: EDIT_COMMENT_SUCCEEDED,
+  comment,
+});
+
+export const cancelEditComment = () => ({
+  type: CANCEL_EDIT_COMMENT,
+});
+
+export const editComment = (id, comment) => {
+  return dispatch => {
+    API.editComment(id, comment)
+      .then(res => {
+        dispatch(editCommentSucceeded(res));
+      })
+      .catch(error => {
+        dispatch(
+          editCommentFailed(
+            `Error editing comment: ${error.message}. Please try again`,
           ),
         );
       });

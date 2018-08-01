@@ -4,18 +4,13 @@ import {
   FETCH_COMMENTS_FAILED,
   CREATE_COMMENT_SUCCEEDED,
   CREATE_COMMENT_FAILED,
-  // FETCH_COMMENT_STARTED,
-  // FETCH_COMMENT_SUCCEEDED,
-  // FETCH_COMMENT_FAILED,
-  // EDIT_COMMENT_STARTED,
-  // EDIT_COMMENT_SUCCEEDED,
-  // EDIT_COMMENT_FAILED,
-  // CANCEL_EDIT,
-  // CANCEL_ERROR,
+  EDIT_COMMENT_STARTED,
+  EDIT_COMMENT_SUCCEEDED,
+  EDIT_COMMENT_FAILED,
+  CANCEL_EDIT_COMMENT,
   UPVOTE,
   DOWNVOTE,
   DELETE_COMMENT_SUCCEEDED,
-  // CREATE_COMMENT_SUCCEEDED,
 } from '../actions/comments';
 
 const initialState = {
@@ -25,10 +20,10 @@ const initialState = {
   error: null,
 };
 
-const removeDeleted = items => items.filter(item => {
-  console.log("here");
-  return !item.deleted;
-})
+const removeDeleted = items =>
+  items.filter(item => {
+    return !item.deleted;
+  });
 
 export const getSortedComments = comments => {
   return removeDeleted(comments).sort(
@@ -68,57 +63,32 @@ export default function comments(state = initialState, action) {
         isLoading: false,
         error: action.error,
       };
-    // case FETCH_COMMENT_STARTED:
-    // case FETCH_COMMENT_STARTED:
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //     error: null,
-    //   };
-    // case FETCH_COMMENT_SUCCEEDED:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     comments: state.comments.map(
-    //       comment => (comment.id === action.comment.id ? action.comment : comment),
-    //     ),
-    //   };
-    // case FETCH_COMMENT_FAILED:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     error: action.error,
-    //   };
-    // case EDIT_COMMENT_STARTED:
-    //   return {
-    //     ...state,
-    //     isEditing: true,
-    //     error: null,
-    //   };
-    // case EDIT_COMMENT_SUCCEEDED:
-    //   return {
-    //     ...state,
-    //     isEditing: false,
-    //     comments: state.comments.map(
-    //       comment => (comment.id === action.comment.id ? action.comment : comment),
-    //     ),
-    //   };
-    // case EDIT_COMMENT_FAILED:
-    //   return {
-    //     ...state,
-    //     isEditing: false,
-    //     error: action.error,
-    //   };
-    // case CANCEL_EDIT:
-    //   return {
-    //     ...state,
-    //     isEditing: false,
-    //   };
-    // case CANCEL_ERROR:
-    //   return {
-    //     ...state,
-    //     error: null,
-    //   };
+    case EDIT_COMMENT_STARTED:
+      return {
+        ...state,
+        isEditing: true,
+        error: null,
+      };
+    case EDIT_COMMENT_SUCCEEDED:
+      return {
+        ...state,
+        isEditing: false,
+        comments: state.comments.map(
+          comment =>
+            comment.id === action.comment.id ? action.comment : comment,
+        ),
+      };
+    case EDIT_COMMENT_FAILED:
+      return {
+        ...state,
+        isEditing: false,
+        error: action.error,
+      };
+    case CANCEL_EDIT_COMMENT:
+      return {
+        ...state,
+        isEditing: false,
+      };
     case UPVOTE:
       return {
         ...state,
