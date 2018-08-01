@@ -7,7 +7,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditComment from './EditComment';
 import ModalContainer from '../containers/ModalContainer';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 
 class ListItem extends Component {
   state = {
@@ -76,7 +75,6 @@ class ListItem extends Component {
             <DeleteIcon />
           </SimpleControl>
         </div>
-        <Divider />
       </div>
     );
   }

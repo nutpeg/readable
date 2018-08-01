@@ -4,7 +4,6 @@ import ItemInfo from './ItemInfo';
 import VotingControls from './VotingControls';
 import EditPost from './EditPost';
 import ModalContainer from '../containers/ModalContainer';
-// import EditComment from './EditComment';
 import SimpleControl from './SimpleControl';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -57,15 +56,6 @@ class PostDetails extends Component {
             categories={categories}
           />
         </ModalContainer>
-        {/* <ModalContainer onClose={() => onCloseCommentModal()} open={isEditingComment}>
-          <EditComment
-            onClose={() => onCloseCommentModal()}
-            onEditComment={onEditComment}
-            postId={id}
-            // author={item.author}
-            // body={item.body}
-          />
-        </ModalContainer> */}
         <div className="post-title">
           <Typography variant="display1" gutterBottom>
             {title}
