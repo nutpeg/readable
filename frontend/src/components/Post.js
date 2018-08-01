@@ -103,7 +103,7 @@ class Post extends Component {
               <div className="comment-count">
                 <Typography variant="body1" gutterBottom>
                   {commentCount}
-                  {commentCount > 1 ? ' comments' : ' comment'}
+                  {commentCount === 1 ? ' comment' : ' comments'}
                 </Typography>
               </div>
               <div
