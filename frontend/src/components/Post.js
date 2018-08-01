@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {
@@ -61,29 +62,10 @@ class Post extends Component {
     } = this.props.post;
     const { comments } = this.props;
 
-    return (
-      <div className="content">
-        {!isLoadingPost &&
-          id && (
-            <div>
-              <PostDetails
-                id={id}
-                title={title}
-                author={author}
-                timestamp={timestamp}
-                commentCount={commentCount}
-                voteScore={voteScore}
-                body={body}
-                category={category}
-                onUpVote={onUpVote}
-                onDownVote={onDownVote}
-                onDeleteItem={onDeleteItem}
-                onEditItem={onEditItem}
-                categories={categories}
-                isEditing={isEditing}
-                onOpenModal={onOpenModal}
-                onCloseModal={onCloseModal}
-              />
+    return <div className="content">
+        {Object.keys(this.props.post).length === 0 && <Redirect to="/pageNotFound" />}
+        {!isLoadingPost && id && <div>
+              <PostDetails id={id} title={title} author={author} timestamp={timestamp} commentCount={commentCount} voteScore={voteScore} body={body} category={category} onUpVote={onUpVote} onDownVote={onDownVote} onDeleteItem={onDeleteItem} onEditItem={onEditItem} categories={categories} isEditing={isEditing} onOpenModal={onOpenModal} onCloseModal={onCloseModal} />
 
               <div className="comments list__header">
                 <Typography variant="display1" gutterBottom>
@@ -91,11 +73,7 @@ class Post extends Component {
                 </Typography>
 
                 <div className="list__header-button">
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={this.toggleOpen}
-                  >
+                  <Button variant="contained" color="secondary" onClick={this.toggleOpen}>
                     Add Comment
                   </Button>
                 </div>
@@ -106,35 +84,17 @@ class Post extends Component {
                   {commentCount === 1 ? ' comment' : ' comments'}
                 </Typography>
               </div>
-              <div
-                className={
-                  'post comments-form ' + (this.state.show ? 'show' : '')
-                }
-              >
-                <NewComment
-                  onCreateComment={onCreateComment}
-                  parentId={id}
-                  className={this.state.show ? 'show' : ''}
-                  onClose={this.toggleOpen}
-                />
+              <div className={'post comments-form ' + (this.state.show ? 'show' : '')}>
+                <NewComment onCreateComment={onCreateComment} parentId={id} className={this.state.show ? 'show' : ''} onClose={this.toggleOpen} />
               </div>
 
-              <CommentsList
-                isLoadingComments={isLoadingComments}
-                comments={comments}
-              />
-            </div>
-          )}
+              <CommentsList isLoadingComments={isLoadingComments} comments={comments} />
+            </div>}
         {isLoadingPost && !id && <CircularProgress />}
         {isLoadingComments && !id && <CircularProgress />}
-        {postError && (
-          <FlashMessageContainer message={postError} variant={'error'} />
-        )}
-        {commentsError && (
-          <FlashMessageContainer message={commentsError} variant={'error'} />
-        )}
-      </div>
-    );
+        {postError && <FlashMessageContainer message={postError} variant={'error'} />}
+        {commentsError && <FlashMessageContainer message={commentsError} variant={'error'} />}
+      </div>;
   }
 }
 
