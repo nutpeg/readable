@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import Typography from '@material-ui/core/Typography';
 import CommentsListItemContainer from '../containers/CommentsListItemContainer';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 
 class CommentsList extends Component {
   render() {
@@ -16,7 +16,7 @@ class CommentsList extends Component {
                 {/* <Typography variant="body1" gutterBottom>
                   {comment.body}
                 </Typography> */}
-                <Divider />
+
               </li>
             ))}
           </ul>
