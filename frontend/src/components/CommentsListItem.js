@@ -28,7 +28,6 @@ class ListItem extends Component {
       onEditItem,
       isEditing,
       onCloseCommentModal,
-      // onOpenCommentModal,
     } = this.props;
     return (
       <div className="list">
@@ -66,7 +65,6 @@ class ListItem extends Component {
             controlText="Edit"
             id={item.id}
             isEditing={isEditing}
-            // handleClick={onOpenCommentModal}
             handleClick={id => this.onEditClickHandler(item.id)}
           >
             <EditIcon />
