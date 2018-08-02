@@ -15,6 +15,8 @@ import {
   SORT_POSTS,
   DELETE_POST_SUCCEEDED,
   CREATE_POST_SUCCEEDED,
+  INCREMENT_COMMENT_COUNT,
+  DECREMENT_COMMENT_COUNT,
 } from '../actions/posts';
 
 const initialState = {
@@ -32,42 +34,21 @@ export const getSortedPosts = (posts, sortOrder) => {
 };
 
 export const getPost = (posts, id) => {
-  return posts.filter(
-    post => post.id === id,
-  )[0] || {};
-}
+  return posts.filter(post => post.id === id)[0] || {};
+};
 
 export default function posts(state = initialState, action) {
   switch (action.type) {
     case FETCH_POSTS_STARTED:
-      return {
-        ...state,
-        isLoading: true,
-        error: null,
-      };
+      return { ...state, isLoading: true, error: null };
     case FETCH_POSTS_SUCCEEDED:
-      return {
-        ...state,
-        isLoading: false,
-        posts: action.posts,
-      };
+      return { ...state, isLoading: false, posts: action.posts };
     case FETCH_POSTS_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.error,
-      };
+      return { ...state, isLoading: false, error: action.error };
     case SORT_POSTS:
-      return {
-        ...state,
-        sortOrder: action.sortOrder,
-      };
+      return { ...state, sortOrder: action.sortOrder };
     case FETCH_POST_STARTED:
-      return {
-        ...state,
-        isLoading: true,
-        error: null,
-      };
+      return { ...state, isLoading: true, error: null };
     case FETCH_POST_SUCCEEDED:
       return {
         ...state,
@@ -77,17 +58,9 @@ export default function posts(state = initialState, action) {
         ),
       };
     case FETCH_POST_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.error,
-      };
+      return { ...state, isLoading: false, error: action.error };
     case EDIT_POST_STARTED:
-      return {
-        ...state,
-        isEditing: true,
-        error: null,
-      };
+      return { ...state, isEditing: true, error: null };
     case EDIT_POST_SUCCEEDED:
       return {
         ...state,
@@ -97,21 +70,11 @@ export default function posts(state = initialState, action) {
         ),
       };
     case EDIT_POST_FAILED:
-      return {
-        ...state,
-        isEditing: false,
-        error: action.error,
-      };
+      return { ...state, isEditing: false, error: action.error };
     case CANCEL_EDIT:
-      return {
-        ...state,
-        isEditing: false,
-      };
+      return { ...state, isEditing: false };
     case CANCEL_ERROR:
-      return {
-        ...state,
-        error: null,
-      };
+      return { ...state, error: null };
     case UPVOTE:
       return {
         ...state,
@@ -141,9 +104,26 @@ export default function posts(state = initialState, action) {
         ),
       };
     case CREATE_POST_SUCCEEDED:
+      return { ...state, posts: [...state.posts, action.post] };
+    case INCREMENT_COMMENT_COUNT:
       return {
         ...state,
-        posts: [...state.posts, action.post],
+        posts: state.posts.map(
+          post =>
+            post.id === action.postId
+              ? { ...post, commentCount: post.commentCount + 1 }
+              : post,
+        ),
+      };
+    case DECREMENT_COMMENT_COUNT:
+      return {
+        ...state,
+        posts: state.posts.map(
+          post =>
+            post.id === action.postId
+              ? { ...post, commentCount: post.commentCount - 1 }
+              : post,
+        ),
       };
     default:
       return state;

@@ -70,7 +70,7 @@ class ListItem extends Component {
           <SimpleControl
             controlText="Delete"
             id={item.id}
-            handleClick={onDeleteItem}
+            handleClick={() => onDeleteItem(item.id, item.parentId)}
           >
             <DeleteIcon />
           </SimpleControl>

@@ -1,4 +1,6 @@
 import * as API from '../utils/api.js';
+import { incrementCommentCount } from './posts';
+import { decrementCommentCount } from './posts';
 
 export const FETCH_COMMENTS_STARTED = 'FETCH_COMMENTS_STARTED';
 export const FETCH_COMMENTS_SUCCEEDED = 'FETCH_COMMENTS_SUCCEEDED';
@@ -92,6 +94,9 @@ export const createComment = ({ author, body, parentId }) => {
       .then(comment => {
         dispatch(createCommentSucceeded(comment));
       })
+      .then(() => {
+        dispatch(incrementCommentCount(parentId));
+      })
       .catch(error => {
         dispatch(
           createCommentFailed(
@@ -101,7 +106,6 @@ export const createComment = ({ author, body, parentId }) => {
       });
   };
 };
-
 
 export const deleteCommentSucceeded = commentId => ({
   type: DELETE_COMMENT_SUCCEEDED,
@@ -113,11 +117,14 @@ export const deleteCommentFailed = commentId => ({
   commentId,
 });
 
-export const deleteComment = id => {
+export const deleteComment = (id, parentId) => {
   return dispatch => {
     API.deleteComment(id)
       .then(() => {
         dispatch(deleteCommentSucceeded(id));
+      })
+      .then(()=> {
+        dispatch(decrementCommentCount(parentId));
       })
       .catch(error => {
         dispatch(

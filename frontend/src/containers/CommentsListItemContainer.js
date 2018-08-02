@@ -15,8 +15,8 @@ const mapDispatchToProps = dispatch => ({
   onDownVote(id) {
     dispatch(commentVote(id, 'downVote'));
   },
-  onDeleteItem(id) {
-    dispatch(deleteComment(id));
+  onDeleteItem(id, parentId) {
+    dispatch(deleteComment(id, parentId));
   },
   onEditItem(id, comment) {
     dispatch(editComment(id, comment));

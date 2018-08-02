@@ -20,9 +20,9 @@ export const fetchCategories = () => {
   return dispatch => {
     dispatch(fetchCategoriesStarted());
     getCategories().then(categories => {
-      setTimeout(() => {
+      // setTimeout(() => {
         dispatch(fetchCategoriesSucceeded(categories));
-      }, 10);
+      // }, 10);
     });
   };
 }

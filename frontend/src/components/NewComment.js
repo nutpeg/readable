@@ -73,6 +73,7 @@ class NewComment extends Component {
         body: this.state.body,
         parentId: this.props.parentId,
       });
+      this.resetForm();
       this.props.onClose();
     }
   };

@@ -18,6 +18,8 @@ export const DELETE_POST_SUCCEEDED = 'DELETE_POST_SUCCEEDED';
 export const DELETE_POST_FAILED = 'DELETE_POST_FAILED';
 export const CREATE_POST_SUCCEEDED = 'CREATE_POST_SUCCEEDED';
 export const CREATE_POST_FAILED = 'CREATE_POST_FAILED';
+export const INCREMENT_COMMENT_COUNT = 'INCREMENT_COMMENT_COUNT';
+export const DECREMENT_COMMENT_COUNT = 'DECREMENT_COMMENT_COUNT';
 
 export const fetchPostsStarted = () => ({
   type: FETCH_POSTS_STARTED,
@@ -204,3 +206,13 @@ export const editPost = (id, post) => {
       });
   };
 };
+
+export const incrementCommentCount = (postId) => ({
+  type: INCREMENT_COMMENT_COUNT,
+  postId,
+})
+
+export const decrementCommentCount = (postId) => ({
+  type: DECREMENT_COMMENT_COUNT,
+  postId,
+})
